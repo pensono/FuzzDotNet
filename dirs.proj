@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.Build.Traversal/2.0.12">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="src/FuzzDotNet.csproj" />
+    <ProjectReference Include="test/FuzzDotNet.Test.csproj" />
+  </ItemGroup>
+</Project>

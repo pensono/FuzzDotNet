@@ -2,7 +2,7 @@
 
 namespace FuzzDotNet
 {
-    [AttributeUsage(System.AttributeTargets.Method)]  
+    [AttributeUsage(AttributeTargets.Method)]  
     public class FuzzTestAttribute : Attribute
     {
     }

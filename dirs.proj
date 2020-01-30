@@ -3,10 +3,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="src/FuzzDotNet.csproj" />
+    <ProjectReference Include="src/dirs.proj" />
     <ProjectReference Include="test/FuzzDotNet.Test.csproj" />
   </ItemGroup>
 </Project>

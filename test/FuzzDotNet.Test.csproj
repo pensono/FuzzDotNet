@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../src/FuzzDotNet.csproj" />
+    <ProjectReference Include="../src/Core/FuzzDotNet.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

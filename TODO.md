@@ -1,0 +1,7 @@
+- Generators at the class level
+    - Make sure this works with inheritance somehow
+- Interesting generators
+    - Difficult unicode strings
+    - Interesting edge case numbers
+    - List generator, composable with other generators
+- An actual test adapter supported by `dotnet`

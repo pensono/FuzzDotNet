@@ -15,7 +15,7 @@ namespace FuzzDotNet.Test
         private class ParameterGeneratorTestClass {
             [FuzzTest]
             public void Method(
-                [Generator(typeof(ConstantGenerator<int>), 42)] int i)
+                [ConstantGenerator(42)] int i)
             {
                 GeneratedValue = i;
             }
@@ -29,44 +29,11 @@ namespace FuzzDotNet.Test
             Assert.AreEqual(42, GeneratedValue);
         }
 
-        private class GeneratorAttributeWrongTypeClass
-        {
-            [FuzzTest]
-            public void Method(
-                [Generator(typeof(int))] int i)
-            {
-            }
-        }
-
-        [TestMethod]
-        public void GeneratorAttributeWrongTypeThrows()
-        {
-            var adapter = new Adapter();
-            Assert.ThrowsException<ArgumentException>(() => adapter.RunTests(typeof(GeneratorAttributeWrongTypeClass)));
-        }
-
-
         private class GeneratorAttributeWrongConstructorArgumentTypeClass
         {
             [FuzzTest]
             public void Method(
-                [Generator(typeof(ConstantGenerator<int>), "not an int")] int i)
-            {
-            }
-        }
-
-        [TestMethod]
-        public void GeneratorAttributeWrongConstructorArgumentTypeThrows()
-        {
-            var adapter = new Adapter();
-            Assert.ThrowsException<ArgumentException>(() => adapter.RunTests(typeof(GeneratorAttributeWrongConstructorArgumentTypeClass)));
-        }
-
-        private class GeneratorAttributeWrongArgumentTypeClass
-        {
-            [FuzzTest]
-            public void Method(
-                [Generator(typeof(ConstantGenerator<int>), 42)] string i)
+                [ConstantGenerator("not an int")] int i)
             {
             }
         }
@@ -75,7 +42,7 @@ namespace FuzzDotNet.Test
         public void GeneratorAttributeWrongArgumentTypeThrows()
         {
             var adapter = new Adapter();
-            Assert.ThrowsException<ArgumentException>(() => adapter.RunTests(typeof(GeneratorAttributeWrongArgumentTypeClass)));
+            Assert.ThrowsException<ArgumentException>(() => adapter.RunTests(typeof(GeneratorAttributeWrongConstructorArgumentTypeClass)));
         }
     }
 }

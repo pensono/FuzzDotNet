@@ -2,15 +2,22 @@ using System;
 
 namespace FuzzDotNet
 {
-    public class ConstantGenerator<T> : IGenerator
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// It would be cool if this class could be generic
+    /// </remarks>
+    public class ConstantGenerator : Generator
     {
-        private readonly T _value;
+        private readonly object? _value;
 
-        public ConstantGenerator(T value) {
+        public ConstantGenerator(object? value)
+        {
             _value = value;
         }
 
-        public object? Generate(Random random)
+        public override object? Generate(Random random)
         {
             return _value;
         }

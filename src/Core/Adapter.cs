@@ -11,7 +11,8 @@ namespace FuzzDotNet
         private static readonly IDictionary<Type, IGenerator> DefaultGenerators = new Dictionary<Type, IGenerator> {
         };
 
-        public void RunTests(Type testClass) {
+        public void RunTests(Type testClass) 
+        {
             // How much of this can be static?
 
             var constructor = testClass.GetConstructor(new Type[] {});
@@ -34,10 +35,10 @@ namespace FuzzDotNet
 
         private static IGenerator GetGenerator(ParameterInfo parameter)
         {
-            var generatorAttribute = parameter.GetCustomAttribute<GeneratorAttribute>();
+            var generatorAttribute = parameter.GetCustomAttribute<Generator>();
 
             // Don't do any fancy class based lookup
-            return generatorAttribute?.Generator ?? DefaultGenerators[parameter.ParameterType];
+            return generatorAttribute ?? DefaultGenerators[parameter.ParameterType];
         }
     }
 }

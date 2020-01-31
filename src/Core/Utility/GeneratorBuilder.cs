@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Linq;
-using FuzzDotNet.Core.Utility;
 
-namespace FuzzDotNet
+namespace FuzzDotNet.Core.Utility
 {
-    [AttributeUsage(AttributeTargets.Parameter)]
-    public class GeneratorAttribute : Attribute
+    public static class GeneratorBuilder
     {
-        public IGenerator Generator { get; }
 
         /// <summary>
         /// Designates what generator should be used for the annotated argument.
         /// </summary>
         /// <param name="generatorType">The type of the generator</param>
         /// <param name="constructorArguments">The arguments to pass to the object during construction.</param>
-        public GeneratorAttribute(Type generatorType, params object[] constructorArguments)
+        public static IGenerator BuildGenerator(Type generatorType, params object[] constructorArguments)
         {
             // Should this be done in the attribute, or somewhere else?
             var constructorArgumentTypes = constructorArguments.Select(a => a.GetType()).ToArray();
@@ -28,7 +25,7 @@ namespace FuzzDotNet
 
             Check.IsNotNull(generator, $"Given generator type is not a subclass of {nameof(IGenerator)}");
 
-            Generator = generator;
+            return generator;
         }
     }
 }

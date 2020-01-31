@@ -1,18 +1,13 @@
-using System;
-using System.Reflection;
+﻿using System;
 using System.Linq;
+using FuzzDotNet.Core.Utility;
 
 namespace FuzzDotNet
 {
-    // TODO figure out how this definition could be used
-    //public interface IGenerator<out T>
-    public interface IGenerator
+    [AttributeUsage(AttributeTargets.Parameter, Inherited = true)]
+    public abstract class Generator : Attribute, IGenerator
     {
-        /// <summary>
-        /// Generates a random value.
-        /// </summary>
-        /// <param name="random">The source of randomness to use during generation.</param>
-        /// <returns>A sampled value.</returns>
-        public object? Generate(Random random);
+        // Is there some way to omit this method so that inheritors don't need to specify override?
+        public abstract object? Generate(Random random);
     }
 }

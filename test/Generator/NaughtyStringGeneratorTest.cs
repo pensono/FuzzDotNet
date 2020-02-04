@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using FuzzDotNet.Core;
+using FuzzDotNet.Test.Utilities;
 using FuzzDotNet.Core.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,7 +16,7 @@ namespace FuzzDotNet.Test.Generator
 
             var generatedValue = generator.Generate(random);
 
-            Assert.IsTrue(generatedValue is string);
+            Assert.That.IsType<string>(generatedValue);
         }
     }
 }

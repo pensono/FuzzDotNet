@@ -5,3 +5,9 @@
     - Interesting edge case numbers
     - List generator, composable with other generators
 - An actual test adapter supported by `dotnet`
+- Simplification of counterexamples
+- Data Driven Tests
+    - Let the user specify in YAML a test, or at least some complex inputs to a test
+- Subclass tests
+    - Write some test that specifies properties which all subclasses must adhere to
+- Naughty float/double

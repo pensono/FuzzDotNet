@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="MSTest.TestFramework" />
+    <PackageReference Include="NaughtyStrings" />
   </ItemGroup>
 
 </Project>

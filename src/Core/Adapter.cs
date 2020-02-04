@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace FuzzDotNet
+namespace FuzzDotNet.Core
 {
     public class Adapter
     {
@@ -27,7 +27,7 @@ namespace FuzzDotNet
 
                 // We'll have to get more sophisticated with how random numbers are generated for better reproducibility
                 // Maybe use one random instance which seeds each generator?
-                var random = new Random();
+                var random = new FuzzRandom();
                 var arguments = argumentGenerators.Select(g => g.Generate(random));
                 method.Invoke(instance, arguments.ToArray());
             }

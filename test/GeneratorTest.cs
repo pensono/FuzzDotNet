@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using FuzzDotNet;
-using Moq;
+using FuzzDotNet.Core;
+using FuzzDotNet.Core.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.Test

@@ -1,3 +1,4 @@
+using FuzzDotNet.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.Test

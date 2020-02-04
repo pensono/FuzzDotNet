@@ -1,6 +1,7 @@
 using System;
+using FuzzDotNet.Core;
 
-namespace FuzzDotNet
+namespace FuzzDotNet.Core.Generators
 {
     /// <summary>
     /// 
@@ -17,7 +18,7 @@ namespace FuzzDotNet
             _value = value;
         }
 
-        public override object? Generate(Random random)
+        public override object? Generate(FuzzRandom random)
         {
             return _value;
         }

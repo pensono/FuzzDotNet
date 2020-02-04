@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using FuzzDotNet.Core;
 using FuzzDotNet.Core.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,7 +20,7 @@ namespace FuzzDotNet.Test
             {
             }
 
-            public object? Generate(Random random)
+            public object? Generate(FuzzRandom random)
             {
                 return null;
             }

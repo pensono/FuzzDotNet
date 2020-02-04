@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FuzzDotNet.Test
 {
     [TestClass]
-    public class GeneratorTest
+    public class GeneratorAnnotationTest
     {
         public static int GeneratedValue { get; private set; } = 0;
 

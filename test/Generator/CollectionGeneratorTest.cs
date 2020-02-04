@@ -5,7 +5,7 @@ using FuzzDotNet.Core.Generators;
 using FuzzDotNet.Test.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Test
+namespace FuzzDotNet.Test.Generator
 {
     [TestClass]
     public class CollectionGeneratorTest

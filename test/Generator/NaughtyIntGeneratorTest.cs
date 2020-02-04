@@ -4,7 +4,7 @@ using FuzzDotNet.Core;
 using FuzzDotNet.Core.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Test
+namespace FuzzDotNet.Test.Generator
 {
     [TestClass]
     public class NaughtyIntGeneratorTest

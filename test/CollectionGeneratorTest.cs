@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Generators;
+using FuzzDotNet.Test.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.Test
@@ -17,7 +18,7 @@ namespace FuzzDotNet.Test
 
             var generatedValue = generator.Generate(random);
 
-            Assert.IsTrue(generatedValue is int);
+            Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);
             Assert.IsTrue((int)generatedValue > 0);
         }
@@ -30,7 +31,7 @@ namespace FuzzDotNet.Test
 
             var generatedValue = generator.Generate(random);
 
-            Assert.IsTrue(generatedValue is int);
+            Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);
             Assert.IsTrue((int)generatedValue > 0);
         }

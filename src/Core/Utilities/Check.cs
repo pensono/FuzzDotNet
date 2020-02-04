@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace FuzzDotNet.Core.Utility
+namespace FuzzDotNet.Core.Utilities
 {
     internal static class Check
     {
@@ -14,9 +15,16 @@ namespace FuzzDotNet.Core.Utility
             }
         }
 
-        public static void IsNotNull(object? obj, string? message = null)
+        public static void IsType<T>(object obj, string? message = null)
         {
-            // TODO Suppress CS8602 by convincing the compiler that obj is not null after this function has been called
+            if (!(obj is T))
+            {
+                throw new ArgumentException(message);
+            }
+        }
+
+        public static void IsNotNull([NotNull] object? obj, string? message = null)
+        {
             if (obj == null)
             {
                 throw new ArgumentException(message);

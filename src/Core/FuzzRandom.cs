@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FuzzDotNet.Core.Utility;
+using FuzzDotNet.Core.Utilities;
 
 namespace FuzzDotNet.Core
 {

@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
+using FuzzDotNet.Core.Utilities;
 
 namespace FuzzDotNet.Core
 {
@@ -16,6 +17,7 @@ namespace FuzzDotNet.Core
             // How much of this can be static?
 
             var constructor = testClass.GetConstructor(new Type[] {});
+            Check.IsNotNull(constructor, $"Type '{testClass}' does not have a no-argument constructor");
 
             var instance = constructor.Invoke(new object[] {});
 

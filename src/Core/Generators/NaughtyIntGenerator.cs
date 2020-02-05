@@ -8,7 +8,7 @@ namespace FuzzDotNet.Core.Generators
     /// <remarks>
     /// It would be cool if this class could be generic
     /// </remarks>
-    public class NaughtyIntGenerator : CollectionGenerator
+    public class NaughtyIntGenerator : ChoiceGenerator
     {
         private static readonly IReadOnlyList<int> NaughtyInts = new List<int>()
         {

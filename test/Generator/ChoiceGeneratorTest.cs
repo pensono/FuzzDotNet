@@ -8,12 +8,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FuzzDotNet.Test.Generator
 {
     [TestClass]
-    public class CollectionGeneratorTest
+    public class ChoiceGeneratorTest
     {
         [TestMethod]
         public void CollectionGeneratorParams()
         {
-            var generator = new CollectionGenerator(1, 2, 3, 4);
+            var generator = new ChoiceGenerator(1, 2, 3, 4);
             var random = new FuzzRandom();
 
             var generatedValue = generator.Generate(typeof(int), random);
@@ -26,7 +26,7 @@ namespace FuzzDotNet.Test.Generator
         [TestMethod]
         public void CollectionGeneratorList()
         {
-            var generator = new CollectionGenerator(new List<object?>{1, 2, 3, 4});
+            var generator = new ChoiceGenerator(new List<object?>{1, 2, 3, 4});
             var random = new FuzzRandom();
 
             var generatedValue = generator.Generate(typeof(int), random);

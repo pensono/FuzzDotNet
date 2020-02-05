@@ -11,21 +11,21 @@ namespace FuzzDotNet.Core.Generators
     /// <remarks>
     /// It would be cool if this class could be generic
     /// </remarks>
-    public class CollectionGenerator : Generator
+    public class ChoiceGenerator : Generator
     {
         private readonly IList<object?> _items;
 
-        public CollectionGenerator(params object?[] items)
+        public ChoiceGenerator(params object?[] items)
         {
             _items = items;
         }
 
-        public CollectionGenerator(IEnumerable<object?> items)
+        public ChoiceGenerator(IEnumerable<object?> items)
         {
             _items = items.ToImmutableList();
         }
 
-        public CollectionGenerator(IEnumerable<int> items)
+        public ChoiceGenerator(IEnumerable<int> items)
         {
             _items = items.OfType<object?>().ToImmutableList();
         }

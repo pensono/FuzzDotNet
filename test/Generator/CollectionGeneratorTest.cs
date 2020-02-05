@@ -16,7 +16,7 @@ namespace FuzzDotNet.Test.Generator
             var generator = new CollectionGenerator(1, 2, 3, 4);
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(random);
+            var generatedValue = generator.Generate(typeof(int), random);
 
             Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);
@@ -29,7 +29,7 @@ namespace FuzzDotNet.Test.Generator
             var generator = new CollectionGenerator(new List<object?>{1, 2, 3, 4});
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(random);
+            var generatedValue = generator.Generate(typeof(int), random);
 
             Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);

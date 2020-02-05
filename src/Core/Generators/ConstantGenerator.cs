@@ -18,7 +18,7 @@ namespace FuzzDotNet.Core.Generators
             _value = value;
         }
 
-        public override object? Generate(FuzzRandom random)
+        public override object? Generate(Type type, FuzzRandom random)
         {
             return _value;
         }

@@ -14,7 +14,7 @@ namespace FuzzDotNet.Test.Generator
             var generator = new NaughtyStringGenerator();
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(random);
+            var generatedValue = generator.Generate(typeof(string), random);
 
             Assert.That.IsType<string>(generatedValue);
         }

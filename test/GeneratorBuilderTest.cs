@@ -20,7 +20,7 @@ namespace FuzzDotNet.Test
             {
             }
 
-            public object? Generate(FuzzRandom random)
+            public object? Generate(Type type, FuzzRandom random)
             {
                 return null;
             }

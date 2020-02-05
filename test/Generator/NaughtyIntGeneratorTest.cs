@@ -15,7 +15,7 @@ namespace FuzzDotNet.Test.Generator
             var generator = new NaughtyIntGenerator();
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(random);
+            var generatedValue = generator.Generate(typeof(int), random);
 
             Assert.IsTrue(generatedValue is int);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FuzzDotNet.Core.Utilities;
 
@@ -15,11 +16,19 @@ namespace FuzzDotNet.Core
             var index = _random.Next(items.Count);
             return items[index];
         }
-
-        public T Choice<T>(params T[] items)
+        
+        public object? Choice(Array items)
         {
             Check.IsTrue(items.Length > 0);
 
+            var index = _random.Next(items.Length);
+            return items.GetValue(index);
+        }
+        
+        public T Choice<T>(params T[] items)
+        {
+            Check.IsTrue(items.Length > 0);
+        
             var index = _random.Next(items.Length);
             return items[index];
         }

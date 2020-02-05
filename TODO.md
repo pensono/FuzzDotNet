@@ -1,10 +1,9 @@
 - Generators at the class level
     - Make sure this works with inheritance somehow
 - Interesting generators
-    - Difficult unicode strings
-    - Interesting edge case numbers
     - List generator, composable with other generators
 - An actual test adapter supported by `dotnet`
+- Reduce setup overhead
 - Simplification of counterexamples
 - Data Driven Tests
     - Let the user specify in YAML a test, or at least some complex inputs to a test

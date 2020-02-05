@@ -30,17 +30,19 @@ namespace FuzzDotNet.Core
                 // We'll have to get more sophisticated with how random numbers are generated for better reproducibility
                 // Maybe use one random instance which seeds each generator?
                 var random = new FuzzRandom();
-                var arguments = argumentGenerators.Select(g => g.Generate(random));
+                var arguments = argumentGenerators.Select(f => f(random));
                 method.Invoke(instance, arguments.ToArray());
             }
         }
 
-        private static IGenerator GetGenerator(ParameterInfo parameter)
+        private static Func<FuzzRandom, object?> GetGenerator(ParameterInfo parameter)
         {
             var generatorAttribute = parameter.GetCustomAttribute<Generator>();
 
             // Don't do any fancy class based lookup
-            return generatorAttribute ?? DefaultGenerators[parameter.ParameterType];
+            var generator = generatorAttribute ?? DefaultGenerators[parameter.ParameterType];
+
+            return random => generator.Generate(parameter.ParameterType, random);
         }
     }
 }

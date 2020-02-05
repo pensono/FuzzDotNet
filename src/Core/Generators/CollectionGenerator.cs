@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace FuzzDotNet.Core.Generators
             _items = items.OfType<object?>().ToImmutableList();
         }
 
-        public override object? Generate(FuzzRandom random)
+        public override object? Generate(Type type, FuzzRandom random)
         {
             return random.Choice(_items);
         }

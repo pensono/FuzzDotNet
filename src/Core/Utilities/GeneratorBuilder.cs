@@ -11,7 +11,7 @@ namespace FuzzDotNet.Core.Utilities
         /// </summary>
         /// <param name="generatorType">The type of the generator</param>
         /// <param name="constructorArguments">The arguments to pass to the object during construction.</param>
-        public static IGenerator BuildGenerator(Type generatorType, params object[] constructorArguments)
+        public static IGenerator BuildGenerator(Type generatorType, params object?[] constructorArguments)
         {
             // Should this be done in the attribute, or somewhere else?
             var constructorArgumentTypes = constructorArguments.Select(a => a.GetType()).ToArray();

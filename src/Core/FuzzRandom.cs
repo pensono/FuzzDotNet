@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using FuzzDotNet.Core.Utilities;
+using Distributions = MathNet.Numerics.Distributions;
 
 namespace FuzzDotNet.Core
 {
@@ -31,6 +31,16 @@ namespace FuzzDotNet.Core
         
             var index = _random.Next(items.Length);
             return items[index];
+        }
+
+        public double Uniform()
+        {
+            return _random.NextDouble();
+        }
+
+        public double Poisson(double mean)
+        {
+            return Distributions.Poisson.Sample(_random, mean);
         }
     }
 }

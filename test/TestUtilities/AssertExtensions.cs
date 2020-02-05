@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Test.Utilities
+namespace FuzzDotNet.Test.TestUtilities
 {
     public static class AssertExtensions
     {

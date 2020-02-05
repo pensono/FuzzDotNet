@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" />
     <PackageReference Include="MSTest.TestFramework" />
     <PackageReference Include="NaughtyStrings" />
   </ItemGroup>

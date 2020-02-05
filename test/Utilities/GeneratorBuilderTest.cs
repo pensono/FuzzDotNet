@@ -3,7 +3,7 @@ using FuzzDotNet.Core;
 using FuzzDotNet.Core.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Test
+namespace FuzzDotNet.Test.Utilities
 {
     [TestClass]
     public class GeneratorBuilderTest

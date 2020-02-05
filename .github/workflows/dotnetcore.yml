@@ -3,13 +3,20 @@ name: .NET Core
 on: [push]
 
 jobs:
-  test:
+  Validation:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Test with dotnet
-      run: dotnet test --configuration Release
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore --configuration ${{ matrix.configuration }}
+    - name: Test
+      run: dotnet test --no-build --configuration ${{ matrix.configuration }}

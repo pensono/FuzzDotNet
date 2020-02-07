@@ -9,7 +9,7 @@ namespace FuzzDotNet.Test
         public static int DiscoveryCount { get; private set; } = 0;
 
         private class TestDiscoveryClass {
-            [FuzzTest]
+            [FuzzTestMethod]
             public void Method() {
                 DiscoveryCount++;
             }

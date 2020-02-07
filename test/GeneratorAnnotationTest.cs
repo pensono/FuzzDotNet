@@ -11,7 +11,7 @@ namespace FuzzDotNet.Test
         public static int GeneratedValue { get; private set; } = 0;
 
         private class ParameterGeneratorTestClass {
-            [FuzzTest]
+            [FuzzTestMethod]
             public void Method(
                 [ConstantGenerator(42)] int i)
             {
@@ -29,7 +29,7 @@ namespace FuzzDotNet.Test
 
         private class GeneratorAttributeWrongConstructorArgumentTypeClass
         {
-            [FuzzTest]
+            [FuzzTestMethod]
             public void Method(
                 [ConstantGenerator("not an int")] int i)
             {

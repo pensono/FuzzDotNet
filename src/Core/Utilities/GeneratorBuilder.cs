@@ -14,6 +14,7 @@ namespace FuzzDotNet.Core.Utilities
         public static IGenerator BuildGenerator(Type generatorType, params object?[] constructorArguments)
         {
             // Should this be done in the attribute, or somewhere else?
+            // TODO Handle nulls here
             var constructorArgumentTypes = constructorArguments.Select(a => a.GetType()).ToArray();
 
             var constructor = generatorType.GetConstructor(constructorArgumentTypes);

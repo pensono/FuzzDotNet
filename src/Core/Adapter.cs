@@ -22,27 +22,12 @@ namespace FuzzDotNet.Core
             var instance = constructor.Invoke(new object[] {});
 
             foreach (var method in testClass.GetMethods()) {
-                var attribute = method.GetCustomAttribute<FuzzTestAttribute>();
+                var attribute = method.GetCustomAttribute<FuzzTestMethodAttribute>();
                 if (attribute == null) continue;
 
-                var argumentGenerators = method.GetParameters().Select(GetGenerator);
-
-                // We'll have to get more sophisticated with how random numbers are generated for better reproducibility
-                // Maybe use one random instance which seeds each generator?
-                var random = new FuzzRandom();
-                var arguments = argumentGenerators.Select(f => f(random));
-                method.Invoke(instance, arguments.ToArray());
+                var arguments = ArgumentGenerator.GenerateArgumentsFor(method);
+                method.Invoke(instance, arguments);
             }
-        }
-
-        private static Func<FuzzRandom, object?> GetGenerator(ParameterInfo parameter)
-        {
-            var generatorAttribute = parameter.GetCustomAttribute<Generator>();
-
-            // Don't do any fancy class based lookup
-            var generator = generatorAttribute ?? DefaultGenerators[parameter.ParameterType];
-
-            return random => generator.Generate(parameter.ParameterType, random);
         }
     }
 }

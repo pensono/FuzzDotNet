@@ -9,16 +9,11 @@ namespace FuzzDotNet.Core
     [AttributeUsage(AttributeTargets.Method)]  
     public class FuzzTestMethodAttribute : TestMethodAttribute
     {
-        private readonly int _iterations;
-
-        public FuzzTestMethodAttribute(int Iterations = 20)
-        {
-            _iterations = Iterations;
-        }
-
+        public int Iterations { get; set; } = 20;
+        
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            for (var iteration = 0; iteration < _iterations; iteration++)
+            for (var iteration = 0; iteration < Iterations; iteration++)
             {
                 var arguments = ArgumentGenerator.GenerateArgumentsFor(testMethod.MethodInfo);
                 testMethod.Invoke(arguments.ToArray());

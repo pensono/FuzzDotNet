@@ -34,8 +34,7 @@ namespace FuzzDotNet.Core.Generators
             var result = Activator.CreateInstance(listType);
             Check.IsNotNull(result);
 
-            var add = listType.GetMethod("Add");
-            Check.IsNotNull(add);
+            var add = listType.GetMethod("Add")!;
 
             for (var i = 0; i < length; i++)
             {
@@ -44,6 +43,11 @@ namespace FuzzDotNet.Core.Generators
             }
 
             return result;
+        }
+
+        public override bool CanGenerate(Type parameterType)
+        {
+            return typeof(IEnumerable<>).IsSubclassOf(parameterType) && _elementGenerator.CanGenerate(parameterType.GetEnumerableElementType());
         }
     }
 }

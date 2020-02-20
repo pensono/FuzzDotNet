@@ -1,5 +1,6 @@
 using System;
 using FuzzDotNet.Core;
+using FuzzDotNet.Core.Utilities;
 
 namespace FuzzDotNet.Core.Generators
 {
@@ -13,9 +14,15 @@ namespace FuzzDotNet.Core.Generators
     {
         private readonly object? _value;
 
-        public ConstantGenerator(object? value)
+        public ConstantGenerator(object value)
         {
+            // TODO Do a null generator separately
             _value = value;
+        }
+
+        public override bool CanGenerate(Type parameterType)
+        {
+            return parameterType.IsCovariantSubtypeOf(_value.GetType());
         }
 
         public override object? Generate(Type type, FuzzRandom random)

@@ -20,11 +20,12 @@ namespace FuzzDotNet.Core.Utilities
 
         private static Func<FuzzRandom, object?> GetGenerator(ParameterInfo parameter)
         {
-            var generatorAttribute = parameter.GetCustomAttribute<Generator>();
+            var generator = parameter.GetCustomAttribute<Generator>();
 
-            // Don't do any fancy class based lookup
-            var generator = generatorAttribute; // ?? DefaultGenerators[parameter.ParameterType]; TODO Use default generators
-            Check.IsNotNull(generator);
+            if (generator == null)
+            {
+                parameter.Member.GetCustomAttributes<Generator>();
+            }
 
             return random => generator.Generate(parameter.ParameterType, random);
         }

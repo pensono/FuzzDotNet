@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace FuzzDotNet.Core
 {
-    // TODO figure out how this definition could be used
-    //public interface IGenerator<out T>
     public interface IGenerator
     {
+        public bool CanGenerate(Type parameterType);
+
         /// <summary>
         /// Generates a random value.
         /// </summary>

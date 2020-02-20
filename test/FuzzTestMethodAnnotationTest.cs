@@ -23,7 +23,11 @@ namespace FuzzDotNet.Test
         public void TestIterationsBasic() {
             // TODO Fuzz this test >:D
 
-            var attribute = new FuzzTestMethodAttribute();
+            var attribute = new FuzzTestMethodAttribute
+            {
+                Iterations = 20
+            };
+
             var fuzzClassInstance = new TestIterationsClass();
 
             var fuzzTestMethod = new Mock<ITestMethod>();

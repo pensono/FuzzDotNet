@@ -20,6 +20,8 @@ namespace FuzzDotNet.Test.Utilities
             {
             }
 
+            public Type GeneratedType => throw new NotImplementedException();
+
             public object? Generate(Type type, FuzzRandom random)
             {
                 return null;

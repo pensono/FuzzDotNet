@@ -7,7 +7,12 @@ namespace FuzzDotNet.Core.Generators
 {
     public class EnumGenerator : Generator
     {
-        public override object? Generate(Type type, FuzzRandom random)
+        public override bool CanGenerate(Type type)
+        {
+            return type.IsEnum;
+        }
+
+        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
             Check.IsTrue(type.IsEnum);
 

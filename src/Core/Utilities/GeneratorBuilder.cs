@@ -15,7 +15,7 @@ namespace FuzzDotNet.Core.Utilities
         {
             // Should this be done in the attribute, or somewhere else?
             // TODO Handle nulls here
-            var constructorArgumentTypes = constructorArguments.Select(a => a.GetType()).ToArray();
+            var constructorArgumentTypes = constructorArguments.Select(a => a!.GetType()).ToArray();
 
             var constructor = generatorType.GetConstructor(constructorArgumentTypes);
             Check.IsNotNull(

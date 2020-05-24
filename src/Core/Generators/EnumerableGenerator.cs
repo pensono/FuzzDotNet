@@ -14,18 +14,29 @@ namespace FuzzDotNet.Core.Generators
     /// </remarks>
     public class EnumerableGenerator : Generator
     {
-        private readonly IGenerator _elementGenerator;
+        /// <summary>
+        /// The element generator. If null, the generator from the context should be used.
+        /// </summary>
+
+        private readonly IGenerator? _elementGenerator;
         private readonly double _averageSize;
 
-        public EnumerableGenerator(Type generatorType, int averageSize = 10, params object?[] constructorArguments)
+        public EnumerableGenerator(int averageSize = 10, Type? elementGeneratorType = null, params object?[] constructorArguments)
         {
-            _elementGenerator = GeneratorBuilder.BuildGenerator(generatorType, constructorArguments);
+            _elementGenerator = elementGeneratorType == null ? null : GeneratorBuilder.BuildGenerator(elementGeneratorType, constructorArguments);
             _averageSize = averageSize;
         }
 
-        public override object? Generate(Type type, FuzzRandom random)
+        public override bool CanGenerate(Type type)
+        {
+            return type.IsAssignableFrom(typeof(IEnumerable<>)) 
+                && (_elementGenerator == null || _elementGenerator.CanGenerate(type.GetEnumerableElementType()));
+        }
+
+        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
             var elementType = type.GetEnumerableElementType();
+            var elementGenerator = _elementGenerator ?? context.GeneratorFor(type);
 
             var length = (int)Math.Round(random.Poisson(_averageSize));
 
@@ -39,7 +50,7 @@ namespace FuzzDotNet.Core.Generators
 
             for (var i = 0; i < length; i++)
             {
-                var element = _elementGenerator.Generate(elementType, random);
+                var element = elementGenerator.Generate(context, elementType, random);
                 add.Invoke(result, new[]{ element });
             }
 

@@ -14,22 +14,27 @@ namespace FuzzDotNet.Test.Utilities
             Assert.ThrowsException<ArgumentException>(() => GeneratorBuilder.BuildGenerator(typeof(int)));
         }
 
-        public class WrongArgumentTypeClass : IGenerator
+        public class WrongConstructorArgumentTypeClass : IGenerator
         {
-            public WrongArgumentTypeClass(string argument)
+            public WrongConstructorArgumentTypeClass(string argument)
             {
             }
 
-            public object? Generate(Type type, FuzzRandom random)
+            public bool CanGenerate(Type type)
+            {
+                return true;
+            }
+
+            public object? Generate(IFuzzContext context, Type type, FuzzRandom random)
             {
                 return null;
             }
         }
 
         [TestMethod]
-        public void WrongArgumentType()
+        public void WrongConstructorArgumentType()
         {
-            Assert.ThrowsException<ArgumentException>(() => GeneratorBuilder.BuildGenerator(typeof(WrongArgumentTypeClass), 20));
+            Assert.ThrowsException<ArgumentException>(() => GeneratorBuilder.BuildGenerator(typeof(WrongConstructorArgumentTypeClass), 20));
         }
     }
 }

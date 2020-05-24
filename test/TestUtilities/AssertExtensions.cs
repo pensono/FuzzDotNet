@@ -12,6 +12,7 @@ namespace FuzzDotNet.Test.TestUtilities
             {
                 return;
             }
+
             throw new AssertFailedException("Type does not match");
         }
     }

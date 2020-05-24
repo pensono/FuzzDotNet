@@ -11,6 +11,8 @@ namespace FuzzDotNet.Core.Generators
     /// </remarks>
     public class NaughtyStringGenerator : ChoiceGenerator
     {
+        protected override Type ItemType => typeof(string);
+
         public NaughtyStringGenerator()
             : base(TheNaughtyStrings.All)
         {

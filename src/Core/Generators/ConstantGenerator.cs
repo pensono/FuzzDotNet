@@ -18,7 +18,12 @@ namespace FuzzDotNet.Core.Generators
             _value = value;
         }
 
-        public override object? Generate(Type type, FuzzRandom random)
+        public override bool CanGenerate(Type type)
+        {
+            return _value == null || type.IsAssignableFrom(_value.GetType());
+        }
+
+        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
             return _value;
         }

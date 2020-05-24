@@ -5,7 +5,8 @@ namespace FuzzDotNet.Core
     [AttributeUsage(AttributeTargets.Parameter)]
     public abstract class Generator : Attribute, IGenerator
     {
-        // Is there some way to omit this method so that inheritors don't need to specify override?
-        public abstract object? Generate(Type type, FuzzRandom random);
+        public abstract bool CanGenerate(Type type);
+
+        public abstract object? Generate(IFuzzContext context, Type type, FuzzRandom random);
     }
 }

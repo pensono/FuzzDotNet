@@ -14,6 +14,12 @@ namespace FuzzDotNet.Core.Generators
     public class ChoiceGenerator : Generator
     {
         private readonly IList<object?> _items;
+        
+        /// <remarks>
+        /// Not sure what the right choice here is since the list of items is untyped
+        /// It's unlikely this class would be used as a default generator anyways
+        /// </remarks>
+        protected virtual Type ItemType => typeof(object);
 
         public ChoiceGenerator(params object?[] items)
         {
@@ -30,7 +36,12 @@ namespace FuzzDotNet.Core.Generators
             _items = items.OfType<object?>().ToImmutableList();
         }
 
-        public override object? Generate(Type type, FuzzRandom random)
+        public override bool CanGenerate(Type type)
+        {
+            return ItemType.IsAssignableFrom(type);
+        }
+
+        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
             return random.Choice(_items);
         }

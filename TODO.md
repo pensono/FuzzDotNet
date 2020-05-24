@@ -13,3 +13,6 @@
     - Write some test that specifies properties which all subclasses must adhere to
 - Naughty float/double
 - Seed control
+
+- Support for different generation profiles
+  - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

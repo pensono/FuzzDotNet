@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="src/dirs.proj" />
+    <ProjectReference Include="src/FuzzDotNet.csproj" />
     <ProjectReference Include="test/FuzzDotNet.Test.csproj" />
   </ItemGroup>
 </Project>

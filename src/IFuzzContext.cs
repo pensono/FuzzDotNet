@@ -1,6 +1,6 @@
 using System;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     public interface IFuzzContext
     {

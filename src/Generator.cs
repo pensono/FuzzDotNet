@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     [AttributeUsage(AttributeTargets.Parameter)]
     public abstract class Generator : Attribute, IGenerator

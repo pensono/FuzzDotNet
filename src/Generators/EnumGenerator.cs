@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using FuzzDotNet.Core.Utilities;
+using FuzzDotNet.Utilities;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     public class EnumGenerator : Generator
     {

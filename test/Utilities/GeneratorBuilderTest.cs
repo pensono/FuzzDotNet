@@ -1,6 +1,6 @@
 ﻿using System;
-using FuzzDotNet.Core;
-using FuzzDotNet.Core.Utilities;
+using FuzzDotNet;
+using FuzzDotNet.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.Test.Utilities

@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
-using FuzzDotNet.Core;
-using FuzzDotNet.Core.Generators;
+using FuzzDotNet;
+using FuzzDotNet.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

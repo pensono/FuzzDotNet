@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     /// <summary>
     /// Generates objects of classes which are default construtable by generating

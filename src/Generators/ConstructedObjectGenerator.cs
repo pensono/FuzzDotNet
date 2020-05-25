@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Linq;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     /// <summary>
     /// Generates objects of classes by choosing a public constructor and calling it with generated arguments.

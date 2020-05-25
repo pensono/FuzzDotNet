@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using FuzzDotNet.Core.Utilities;
+using FuzzDotNet.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     [AttributeUsage(AttributeTargets.Method)]  
     public class FuzzTestMethodAttribute : TestMethodAttribute

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using FuzzDotNet.Core.Generators;
+using FuzzDotNet.Generators;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     /// <summary>
     /// A test fuzz context to make things predictable.

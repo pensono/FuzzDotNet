@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FuzzDotNet.Core.Generators;
+using FuzzDotNet.Generators;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     public class NaughtyFuzzContext : FuzzContext
     {

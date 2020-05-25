@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     public abstract class FuzzContext : IFuzzContext
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace FuzzDotNet.Core.Utilities
+namespace FuzzDotNet.Utilities
 {
     public static class GeneratorBuilder
     {

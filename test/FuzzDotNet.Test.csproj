@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../src/Core/FuzzDotNet.Core.csproj" />
+    <ProjectReference Include="../src/FuzzDotNet.csproj" />
   </ItemGroup>
 
   <ItemGroup>

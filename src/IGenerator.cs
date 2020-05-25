@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     // TODO figure out how this definition could be used
     //public interface IGenerator<out T>

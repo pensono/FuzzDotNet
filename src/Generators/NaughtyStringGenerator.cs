@@ -1,7 +1,7 @@
 using System;
 using NaughtyStrings;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     /// <summary>
     /// 

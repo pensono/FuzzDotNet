@@ -1,6 +1,6 @@
-using FuzzDotNet.Core;
+using FuzzDotNet;
 using FuzzDotNet.Test.TestUtilities;
-using FuzzDotNet.Core.Generators;
+using FuzzDotNet.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

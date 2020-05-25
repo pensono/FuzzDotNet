@@ -8,7 +8,8 @@ namespace FuzzDotNet.Test.Generator
     [TestClass]
     public class DataObjectGeneratorTest
     {
-        private class DataClass {
+        private class DataClass
+        {
             public string? StringProperty { get; set; }
             public int IntProperty { get; set; }
         }
@@ -21,9 +22,28 @@ namespace FuzzDotNet.Test.Generator
 
             Assert.That.IsType<DataClass>(result);
 
-            var dataClass = (DataClass)result;
-            Assert.AreEqual(TestFuzzContext.GeneratedInt, dataClass.IntProperty);
-            Assert.AreEqual(TestFuzzContext.GeneratedString, dataClass.StringProperty);
+            var obj = (DataClass)result;
+            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.IntProperty);
+            Assert.AreEqual(TestFuzzContext.GeneratedString, obj.StringProperty);
+        }
+
+        private class HasReadOnlyProperty
+        {
+            public int MutableProperty { get; set; }
+            public int ReadOnlyProperty => 11;
+        }
+
+        [TestMethod]
+        public void IgnoresReadOnlyProperty()
+        {
+            var generator = new DataObjectGenerator();
+            var result = generator.Generate(new TestFuzzContext(), typeof(HasReadOnlyProperty), new FuzzRandom());
+
+            Assert.That.IsType<HasReadOnlyProperty>(result);
+
+            var obj = (HasReadOnlyProperty)result;
+            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.MutableProperty);
+            Assert.AreEqual(11, obj.ReadOnlyProperty);
         }
 
         private class NotDefaultConstructable

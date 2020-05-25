@@ -20,8 +20,13 @@ namespace FuzzDotNet.Core.Generators
             var constructor = type.GetConstructor(Array.Empty<Type>())!;
             var instance = constructor.Invoke(Array.Empty<object?>());
 
-            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty)) 
+            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)) 
             {
+                if (!property.CanWrite) 
+                {
+                    continue;
+                }
+
                 var value = context.Generate(property.PropertyType, random);
                 property.SetValue(instance, value);
             }

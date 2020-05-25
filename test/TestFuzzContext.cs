@@ -15,6 +15,10 @@ namespace FuzzDotNet.Core
         public override IEnumerable<IGenerator> DefaultGenerators => new List<IGenerator> {
             new ConstantGenerator(GeneratedInt),
             new ConstantGenerator(GeneratedString),
+            new EnumGenerator(),
+            new EnumerableGenerator(),
+            new DataObjectGenerator(),
+            new ConstructedObjectGenerator(),
         };
     }
 }

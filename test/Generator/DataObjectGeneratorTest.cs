@@ -60,5 +60,31 @@ namespace FuzzDotNet.Test.Generator
             var generator = new DataObjectGenerator();
             Assert.IsFalse(generator.CanGenerate(typeof(NotDefaultConstructable)));
         }
+        
+        private class Outer
+        {
+            public string? StringProperty { get; set; }
+
+            public Inner? Inner { get; set; }
+        }
+
+        private class Inner 
+        {
+            public int IntProperty { get; set; }
+        }
+        
+        [TestMethod]
+        public void NestedObjects()
+        {
+            var generator = new DataObjectGenerator();
+            var result = generator.Generate(new TestFuzzContext(), typeof(Outer), new FuzzRandom());
+
+            Assert.That.IsType<Outer>(result);
+
+            var obj = (Outer)result;
+            Assert.AreEqual(TestFuzzContext.GeneratedString, obj.StringProperty);
+            Assert.IsNotNull(obj.Inner);
+            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.Inner!.IntProperty);
+        }
     }
 }

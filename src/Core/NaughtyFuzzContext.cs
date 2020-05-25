@@ -11,6 +11,8 @@ namespace FuzzDotNet.Core
             new NaughtyIntGenerator(),
             new EnumGenerator(),
             new EnumerableGenerator(),
+            new DataObjectGenerator(),
+            new ConstructedObjectGenerator(),
         };
     }
 }

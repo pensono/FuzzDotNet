@@ -1,8 +1,8 @@
 # FuzzDotNet
 
-![.NET Core](https://github.com/pensono/FuzzDotNet/workflows/.NET%20Core/badge.svg)
+[![.NET Core](https://github.com/pensono/FuzzDotNet/workflows/.NET%20Core/badge.svg)](https://github.com/pensono/FuzzDotNet/actions)
 
-FuzzDotNet is a library enabling fuzz-testing and synthetic application data.
+FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.
 
 ## Fuzz Testing by Contract
 
@@ -77,7 +77,7 @@ public void TestAddContains([TreeSetGenerator] TreeSet<int> set, int element)
 }
 ```
 
-TODO Example for a specific class, and to add it to the context to make it the default for a project.
+TODO: Example for a specific class, and to add it to the context to make it the default for a project.
 
 **Note:** As the complexity of your model grows, the distribution of values fuzzed over has a [great impact][1] on the technique's overall effectiveness. Carefully consider the values generated for best results.
 

@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
-using FuzzDotNet.Core;
-using FuzzDotNet.Core.Generators;
+using FuzzDotNet;
+using FuzzDotNet.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace FuzzDotNet.Test.Generator
 {
@@ -21,7 +20,7 @@ namespace FuzzDotNet.Test.Generator
             var generator = new EnumGenerator();
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(typeof(TestEnum), random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), typeof(TestEnum), random);
 
             Assert.IsTrue(generatedValue is TestEnum);
         }

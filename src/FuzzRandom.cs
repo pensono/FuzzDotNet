@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FuzzDotNet.Core.Utilities;
+using FuzzDotNet.Utilities;
 using Distributions = MathNet.Numerics.Distributions;
 
-namespace FuzzDotNet.Core
+namespace FuzzDotNet
 {
     public class FuzzRandom
     {

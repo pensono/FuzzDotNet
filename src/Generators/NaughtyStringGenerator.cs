@@ -1,6 +1,6 @@
 using NaughtyStrings;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     /// <summary>
     /// Generates potentially problematic strings.
@@ -10,6 +10,8 @@ namespace FuzzDotNet.Core.Generators
     /// </remarks>
     public class NaughtyStringGenerator : ChoiceGenerator
     {
+        protected override Type ItemType => typeof(string);
+
         public NaughtyStringGenerator()
             : base(TheNaughtyStrings.All)
         {

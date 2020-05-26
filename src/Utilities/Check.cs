@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace FuzzDotNet.Core.Utilities
+namespace FuzzDotNet.Utilities
 {
     internal static class Check
     {

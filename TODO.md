@@ -2,9 +2,6 @@
     - Make sure this works with inheritance somehow
 - Interesting generators
     - List generator, composable with other generators
-    - IntGenerator (With max and min, numbers chosen uniformly)
-    - PoissionGenerator
-- An actual test adapter supported by `dotnet`
 - Reduce setup overhead
 - Simplification of counterexamples
 - Data Driven Tests
@@ -13,3 +10,7 @@
     - Write some test that specifies properties which all subclasses must adhere to
 - Naughty float/double
 - Seed control
+- Documentation of philosophy and examples
+
+- Support for different generation profiles
+  - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

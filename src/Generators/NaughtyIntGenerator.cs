@@ -1,15 +1,15 @@
+using System;
 using System.Collections.Generic;
 
-namespace FuzzDotNet.Core.Generators
+namespace FuzzDotNet.Generators
 {
     /// <summary>
     /// Generates potentially problematic integers.
     /// </summary>
-    /// <remarks>
-    /// It would be cool if this class could be generic
-    /// </remarks>
     public class NaughtyIntGenerator : ChoiceGenerator
     {
+        protected override Type ItemType => typeof(int);
+
         private static readonly IReadOnlyList<int> NaughtyInts = new List<int>()
         {
             // Arbitrarily chosen values

@@ -1,5 +1,0 @@
-<Project Sdk="Microsoft.Build.Traversal/2.0.12">
-  <ItemGroup>
-    <ProjectReference Include="Core/FuzzDotNet.Core.csproj" />
-  </ItemGroup>
-</Project>

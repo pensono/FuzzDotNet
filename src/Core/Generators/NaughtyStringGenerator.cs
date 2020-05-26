@@ -1,10 +1,9 @@
-using System;
 using NaughtyStrings;
 
 namespace FuzzDotNet.Core.Generators
 {
     /// <summary>
-    /// 
+    /// Generates potentially problematic strings.
     /// </summary>
     /// <remarks>
     /// It would be cool if this class could be generic

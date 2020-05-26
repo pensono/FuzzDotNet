@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace FuzzDotNet.Core.Generators
 {
     /// <summary>
-    /// 
+    /// Generates potentially problematic integers.
     /// </summary>
     /// <remarks>
     /// It would be cool if this class could be generic

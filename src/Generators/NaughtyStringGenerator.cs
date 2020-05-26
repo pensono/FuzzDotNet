@@ -1,3 +1,4 @@
+using System;
 using NaughtyStrings;
 
 namespace FuzzDotNet.Generators

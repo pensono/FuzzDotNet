@@ -15,7 +15,7 @@ namespace FuzzDotNet.Generators
 
         public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
-            return random.Uniform() * (Max - Min) + Min;
+            return (int) (random.Uniform() * (Max - Min) + Min);
         }
     }
 }

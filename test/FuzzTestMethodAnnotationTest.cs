@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using FuzzDotNet;
 using FuzzDotNet.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -21,11 +20,10 @@ namespace FuzzDotNet.Test
             }
         }
 
-        [TestMethod]
-        public void TestIterationsBasic() {
-            // TODO Fuzz this test >:D
-            var fuzzClassInstance = InvokeTestMethod<TestIterationsClass>();
-            Assert.AreEqual(20, fuzzClassInstance.Invocations);
+        [FuzzTestMethod]
+        public void TestIterationsBasic([UniformIntGenerator(Min = 0, Max = 10)] int iterations) {
+            var fuzzClassInstance = TestMethodInvocationClass<TestIterationsClass>(iterations);
+            Assert.AreEqual(iterations, fuzzClassInstance.Invocations);
         }
 
         private class ParameterGeneratorTestClass {
@@ -40,7 +38,7 @@ namespace FuzzDotNet.Test
 
         [TestMethod]
         public void ParameterGenerator() {
-            var fuzzClassInstance = InvokeTestMethod<ParameterGeneratorTestClass>();
+            var fuzzClassInstance = TestMethodInvocationClass<ParameterGeneratorTestClass>();
             Assert.AreEqual(42, fuzzClassInstance.GeneratedValue);
         }
 
@@ -55,25 +53,102 @@ namespace FuzzDotNet.Test
         [TestMethod]
         public void GeneratorAttributeWrongArgumentTypeThrows()
         {
-            Assert.ThrowsException<ArgumentException>(() => InvokeTestMethod<GeneratorAttributeWrongConstructorArgumentTypeClass>());
+            Assert.ThrowsException<IncompatibleGeneratorException>(() => TestMethodInvocationClass<GeneratorAttributeWrongConstructorArgumentTypeClass>());
         }
 
-        private TTest InvokeTestMethod<TTest>() 
+        private class FailingTestClass
+        {
+            [FuzzTestMethod]
+            public void Method([ConstantGenerator(4)] int i)
+            {
+                Assert.AreEqual(5, i);
+            }
+        }
+
+        [TestMethod]
+        public void CollectAllFailingResults()
+        {
+            var results = TestMethodInvocationResults<FailingTestClass>();
+
+            Assert.AreEqual(20, results.Length);
+
+            // Results should have a seed associated with them in the DataTestRow field
+            foreach (var result in results)
+            {
+                Assert.AreNotEqual(0, result.DatarowIndex);
+            }
+        }
+
+        private class PassingTestClass
+        {
+            [FuzzTestMethod]
+            public void Method([ConstantGenerator(4)] int i)
+            {
+                Assert.AreEqual(4, i);
+            }
+        }
+
+        [TestMethod]
+        public void SinglePassingResult()
+        {
+            var results = TestMethodInvocationResults<PassingTestClass>();
+
+            Assert.AreEqual(1, results.Length);
+        }
+
+        private TestResult[] TestMethodInvocationResults<TTest>()
             where TTest : notnull, new()
         {
             var attribute = new FuzzTestMethodAttribute();
             var fuzzClassInstance = new TTest();
+            var method = CreateTestMethodMock(fuzzClassInstance);
 
+            return attribute.Execute(method);
+        }
+
+        private TTest TestMethodInvocationClass<TTest>(int iterations = 20)
+            where TTest : notnull, new()
+        {
+            var attribute = new FuzzTestMethodAttribute()
+            {
+                Iterations = iterations,
+            };
+
+            var fuzzClassInstance = new TTest();
+            var method = CreateTestMethodMock(fuzzClassInstance);
+
+            attribute.Execute(method);
+
+            return fuzzClassInstance;
+        }
+
+        private ITestMethod CreateTestMethodMock<TTest>(TTest instance)
+        {
             var method = typeof(TTest).GetMethod("Method")!;
 
             var fuzzTestMethod = new Mock<ITestMethod>();
             fuzzTestMethod.Setup(m => m.MethodInfo).Returns(method);
             fuzzTestMethod.Setup(m => m.Invoke(It.IsAny<object?[]>()))
-                .Callback<object?[]>(args => method.Invoke(fuzzClassInstance, args));
+                .Returns<object?[]>(args => {
+                    try
+                    {
+                        method.Invoke(instance, args);
+                    }
+                    catch (Exception)
+                    {
+                        return new TestResult
+                        {
+                            Outcome = UnitTestOutcome.Failed,
+                        };
+                    }
 
-            attribute.Execute(fuzzTestMethod.Object);
+                    return new TestResult
+                    {
+                        Outcome = UnitTestOutcome.Passed,
+                    };
+                });
 
-            return fuzzClassInstance;
+            return fuzzTestMethod.Object;
         }
     }
 }

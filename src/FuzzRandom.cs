@@ -7,7 +7,17 @@ namespace FuzzDotNet
 {
     public class FuzzRandom
     {
-        private readonly Random _random = new Random();
+        private readonly Random _random;
+
+        public FuzzRandom()
+        {
+            _random = new Random();
+        }
+
+        public FuzzRandom(int seed)
+        {
+            _random = new Random(seed);
+        }
 
         public T Choice<T>(IList<T> items)
         {

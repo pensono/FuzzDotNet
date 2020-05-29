@@ -6,7 +6,7 @@ FuzzDotNet is a library enabling fuzz-testing and the generation synthetic appli
 
 ## Fuzz Testing by Contract
 
-Contracts are useful tools for building software. The author of a CRUD service may want to test that after creating a resource, an identical model can be read back. The author may write a test like this:
+Contracts are useful tools for building software. he author of a CRUD service may want to test that after creating a resource, an identical model can be read back. To test this contract, the author may write a test like this:
 
 ```csharp
 [TestMethod]

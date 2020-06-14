@@ -11,6 +11,10 @@
 - Naughty float/double
 - Seed control
 - Documentation of philosophy and examples
+- Property generators.
+    - Maybe added to the property object generator where it could look at attributes and generate data accordingly
+    - Perhaps implement some for System.ComponentModel.DataAnnotations
+- Make uniform and poisson generators generic to all numeric datatypes
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

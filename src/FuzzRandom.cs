@@ -67,7 +67,7 @@ namespace FuzzDotNet
                 throw new ArgumentException($"{nameof(min)} is less than {nameof(max)}");
             }
 
-            return (int) (_random.NextDouble() * (max - min + 1) + min);
+            return _random.Next(min, max);
         }
     }
 }

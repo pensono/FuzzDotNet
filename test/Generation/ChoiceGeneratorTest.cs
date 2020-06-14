@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using FuzzDotNet;
-using FuzzDotNet.Generators;
+using FuzzDotNet.Generation;
 using FuzzDotNet.Test.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace FuzzDotNet.Test.Generator
+namespace FuzzDotNet.Test.Generation
 {
     [TestClass]
     public class ChoiceGeneratorTest

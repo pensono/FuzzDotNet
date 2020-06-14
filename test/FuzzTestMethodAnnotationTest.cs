@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using FuzzDotNet.Generators;
+using FuzzDotNet.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

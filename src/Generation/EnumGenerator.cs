@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FuzzDotNet.Utilities;
 
-namespace FuzzDotNet.Generators
+namespace FuzzDotNet.Generation
 {
     public class EnumGenerator : Generator
     {

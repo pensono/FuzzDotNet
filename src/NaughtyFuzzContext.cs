@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FuzzDotNet.Generators;
+using FuzzDotNet.Generation;
 
 namespace FuzzDotNet
 {

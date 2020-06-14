@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using FuzzDotNet.Utilities;
 
-namespace FuzzDotNet.Generators
+namespace FuzzDotNet.Generation
 {
     /// <summary>
     /// 

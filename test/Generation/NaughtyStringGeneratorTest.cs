@@ -1,10 +1,10 @@
 using FuzzDotNet;
 using FuzzDotNet.Test.TestUtilities;
-using FuzzDotNet.Generators;
+using FuzzDotNet.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace FuzzDotNet.Test.Generator
+namespace FuzzDotNet.Test.Generation
 {
     [TestClass]
     public class NaughtyStringGeneratorTest

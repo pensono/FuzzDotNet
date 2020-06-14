@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FuzzDotNet.Generators
+namespace FuzzDotNet.Generation
 {
     /// <summary>
     /// Generates potentially problematic integers.

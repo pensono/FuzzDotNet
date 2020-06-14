@@ -1,7 +1,7 @@
 using System;
 using FuzzDotNet;
 
-namespace FuzzDotNet.Generators
+namespace FuzzDotNet.Generation
 {
     /// <summary>
     /// 

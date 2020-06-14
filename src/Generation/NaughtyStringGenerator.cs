@@ -1,7 +1,7 @@
 using System;
 using NaughtyStrings;
 
-namespace FuzzDotNet.Generators
+namespace FuzzDotNet.Generation
 {
     /// <summary>
     /// Generates potentially problematic strings.

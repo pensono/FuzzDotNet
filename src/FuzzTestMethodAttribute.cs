@@ -55,15 +55,23 @@ namespace FuzzDotNet
             }
 
             stopwatch.Stop();
+            var passedIterationCount = Iterations - results.Count;
 
-            if (!results.Any())
+            var summaryResult = new TestResult
             {
-                results.Add(new TestResult
-                {
-                    Outcome = UnitTestOutcome.Passed,
-                    Duration = stopwatch.Elapsed,
-                });
+                Outcome = UnitTestOutcome.Passed,
+                Duration = stopwatch.Elapsed,
+                TestContextMessages = $"{testMethod.TestMethodName} ({passedIterationCount} iterations passed)",
+            };
+
+            if (results.Any())
+            {
+                // If there were any test failures, title the summary with the number of passed iterations.
+                // Otherwise, leave it blank and the title will default to the test method's name.
+                summaryResult.DisplayName = summaryResult.TestContextMessages;
             }
+
+            results.Insert(0, summaryResult);
 
             return results.ToArray();
         }

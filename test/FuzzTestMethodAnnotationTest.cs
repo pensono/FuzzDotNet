@@ -70,7 +70,8 @@ namespace FuzzDotNet.Test
         {
             var results = TestMethodInvocationResults<FailingTestClass>();
 
-            Assert.AreEqual(20, results.Length);
+            // +1 for the summary item
+            Assert.AreEqual(20 + 1, results.Length);
 
             // Results should have a seed associated with them in the DataTestRow field
             foreach (var result in results)

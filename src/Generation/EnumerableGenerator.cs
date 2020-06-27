@@ -37,9 +37,9 @@ namespace FuzzDotNet.Generation
             (typeof(IEnumerable<>), typeof(List<>)),
         };
 
-        public EnumerableGenerator(int averageSize = 10, Type? elementGeneratorType = null, params object?[] constructorArguments)
+        public EnumerableGenerator(int averageSize = 10, Type? elementGeneratorType = null, params object?[] elementGeneratorConstructorArguments)
         {
-            _elementGenerator = elementGeneratorType == null ? null : GeneratorBuilder.BuildGenerator(elementGeneratorType, constructorArguments);
+            _elementGenerator = elementGeneratorType == null ? null : GeneratorBuilder.BuildGenerator(elementGeneratorType, elementGeneratorConstructorArguments);
             _averageSize = averageSize;
         }
 
@@ -52,7 +52,7 @@ namespace FuzzDotNet.Generation
         public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
         {
             var elementType = type.GetEnumerableElementType();
-            var elementGenerator = _elementGenerator ?? context.GeneratorFor(type);
+            var elementGenerator = _elementGenerator ?? context.GeneratorFor(elementType);
 
             var length = (int)Math.Round(random.Poisson(_averageSize));
 

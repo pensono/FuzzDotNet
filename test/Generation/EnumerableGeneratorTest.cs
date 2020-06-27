@@ -30,12 +30,26 @@ namespace FuzzDotNet.Test.Generation
         [DataRow(typeof(IReadOnlyList<int>))]
         public void GeneratesCorrectType(Type argumentType)
         {
-            var generator = new EnumerableGenerator(elementGeneratorType: typeof(NaughtyIntGenerator));
+            var generator = new EnumerableGenerator(elementGeneratorType: typeof(ConstantGenerator), elementGeneratorConstructorArguments: 42);
             var random = new FuzzRandom();
 
             var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), argumentType, random);
 
             Assert.IsInstanceOfType(generatedValue, argumentType);
+        }
+
+        [TestMethod]
+        public void DefaultsToContextElementGenerator()
+        {
+            var generator = new EnumerableGenerator();
+            var random = new FuzzRandom();
+
+            var context = new Mock<IFuzzContext>();
+            context.Setup(c => c.GeneratorFor(typeof(int))).Returns(new ConstantGenerator(42));
+
+            var generatedValue = generator.Generate(context.Object, typeof(IList<int>), random);
+
+            Assert.IsInstanceOfType(generatedValue, typeof(IList<int>));
         }
     }
 }

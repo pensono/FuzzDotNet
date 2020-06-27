@@ -1,5 +1,5 @@
 ﻿using System;
-using FuzzDotNet;
+using FuzzDotNet.Generation;
 using FuzzDotNet.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

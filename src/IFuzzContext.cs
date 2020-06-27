@@ -1,3 +1,4 @@
+using FuzzDotNet.Generation;
 using System;
 
 namespace FuzzDotNet

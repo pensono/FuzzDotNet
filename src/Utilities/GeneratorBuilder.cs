@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuzzDotNet.Generation;
+using System;
 using System.Linq;
 
 namespace FuzzDotNet.Utilities

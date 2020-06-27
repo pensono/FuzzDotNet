@@ -17,9 +17,25 @@ namespace FuzzDotNet.Generation
         /// <summary>
         /// The element generator. If null, the generator from the context should be used.
         /// </summary>
-
         private readonly IGenerator? _elementGenerator;
         private readonly double _averageSize;
+
+        /// <summary>
+        /// Implementations associated with various interfaces. Ordered with the most specific interfaces first
+        /// </summary>
+        /// <remarks>
+        /// I'm not entirely sure if this is the best way to do this.
+        /// It might be better to have the generator itself be generic enough to handle different interfaces
+        /// </remarks>
+        private static readonly IList<(Type Interface, Type Implementation)> Implementations = new []
+        {
+            (typeof(IList<>), typeof(List<>)),
+            (typeof(ISet<>), typeof(HashSet<>)),
+            (typeof(IReadOnlyCollection<>), typeof(List<>)),
+            (typeof(IReadOnlyList<>), typeof(List<>)),
+            (typeof(ICollection<>), typeof(List<>)),
+            (typeof(IEnumerable<>), typeof(List<>)),
+        };
 
         public EnumerableGenerator(int averageSize = 10, Type? elementGeneratorType = null, params object?[] constructorArguments)
         {
@@ -29,7 +45,7 @@ namespace FuzzDotNet.Generation
 
         public override bool CanGenerate(Type type)
         {
-            return type.IsAssignableFrom(typeof(IEnumerable<>)) 
+            return GenericImplementationType(type) != null
                 && (_elementGenerator == null || _elementGenerator.CanGenerate(type.GetEnumerableElementType()));
         }
 
@@ -41,11 +57,12 @@ namespace FuzzDotNet.Generation
             var length = (int)Math.Round(random.Poisson(_averageSize));
 
             // Can't use the regular constructor because we don't have a generic type
-            var listType = typeof(List<>).MakeGenericType(new []{ elementType });
-            var result = Activator.CreateInstance(listType);
+            var genericImplementationType = GenericImplementationType(type)!;
+            var implementationType = genericImplementationType.MakeGenericType(new []{ elementType });
+            var result = Activator.CreateInstance(implementationType);
             Check.IsNotNull(result);
 
-            var add = listType.GetMethod("Add");
+            var add = implementationType.GetMethod("Add");
             Check.IsNotNull(add);
 
             for (var i = 0; i < length; i++)
@@ -55,6 +72,27 @@ namespace FuzzDotNet.Generation
             }
 
             return result;
+        }
+
+        private Type? GenericImplementationType(Type type)
+        {
+            if (!type.IsGenericType)
+            {
+                return null;
+            }
+
+            var genericType = type.GetGenericTypeDefinition();
+            var interfaces = genericType.GetInterfaces().Prepend(genericType);
+
+            foreach (var (interfaceType, implementation) in Implementations)
+            {
+                if (interfaces.Contains(interfaceType))
+                {
+                    return implementation;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -1,7 +1,7 @@
 - Generators at the class level
     - Make sure this works with inheritance somehow
 - Interesting generators
-    - List generator, composable with other generators
+    - Regex generator. Generates strings which match a regex
 - Reduce setup overhead
 - Simplification of counterexamples
 - Data Driven Tests
@@ -15,6 +15,8 @@
     - Maybe added to the property object generator where it could look at attributes and generate data accordingly
     - Perhaps implement some for System.ComponentModel.DataAnnotations
 - Make uniform and poisson generators generic to all numeric datatypes
+- GitHub/JIRA bug creation notifier
+- Markdown "bug report" formatter
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

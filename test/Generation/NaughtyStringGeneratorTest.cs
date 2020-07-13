@@ -15,7 +15,7 @@ namespace FuzzDotNet.Test.Generation
             var generator = new NaughtyStringGenerator();
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), typeof(string), random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), typeof(string), random);
 
             Assert.That.IsType<string>(generatedValue);
         }

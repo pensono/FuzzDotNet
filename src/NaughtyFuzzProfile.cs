@@ -4,7 +4,7 @@ using FuzzDotNet.Generation;
 
 namespace FuzzDotNet
 {
-    public class NaughtyFuzzContext : FuzzContext
+    public class NaughtyFuzzProfile : FuzzProfile
     {
         public override IEnumerable<IGenerator> DefaultGenerators => new List<IGenerator> {
             new NaughtyStringGenerator(),

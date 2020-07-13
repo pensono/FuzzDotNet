@@ -16,15 +16,15 @@ namespace FuzzDotNet
 
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            // TODO Use a better way of getting the context fed in
-            IFuzzContext context = new NaughtyFuzzContext();
+            // TODO Use a better way of getting the profile fed in
+            IFuzzProfile profile = new NaughtyFuzzProfile();
             var seedGenerator = new FuzzRandom();
             var results = new List<TestResult>();
             var stopwatch = new Stopwatch();
 
             var argumentGenerators = testMethod.MethodInfo.GetParameters()
                 .Select(parameter => {
-                    var generator = GetGenerator(context, parameter);
+                    var generator = GetGenerator(profile, parameter);
 
                     if (!generator.CanGenerate(parameter.ParameterType))
                     {
@@ -42,7 +42,7 @@ namespace FuzzDotNet
 
                 var arguments = argumentGenerators
                     .Select(g => {
-                        return g.Generator.Generate(context, g.ParameterType, random);
+                        return g.Generator.Generate(profile, g.ParameterType, random);
                     });
 
                 var result = testMethod.Invoke(arguments.ToArray());
@@ -77,11 +77,11 @@ namespace FuzzDotNet
             return results.ToArray();
         }
 
-        private static IGenerator GetGenerator(IFuzzContext context, ParameterInfo parameter)
+        private static IGenerator GetGenerator(IFuzzProfile profile, ParameterInfo parameter)
         {
             var generatorAttribute = parameter.GetCustomAttribute<Generator>();
 
-            return generatorAttribute ?? context.GeneratorFor(parameter.ParameterType);
+            return generatorAttribute ?? profile.GeneratorFor(parameter.ParameterType);
         }
     }
 }

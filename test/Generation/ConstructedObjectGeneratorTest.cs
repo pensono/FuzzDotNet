@@ -22,12 +22,12 @@ namespace FuzzDotNet.Test.Generation
         public void GeneratesDataClass()
         {
             var generator = new ConstructedObjectGenerator();
-            var result = generator.Generate(new TestFuzzContext(), typeof(ConstructedClass), new FuzzRandom());
+            var result = generator.Generate(new TestFuzzProfile(), typeof(ConstructedClass), new FuzzRandom());
 
             Assert.That.IsType<ConstructedClass>(result);
 
             var obj = (ConstructedClass)result;
-            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.IntProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedInt, obj.IntProperty);
         }
         
         private class NonConstructable

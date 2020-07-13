@@ -33,21 +33,21 @@ namespace FuzzDotNet.Test.Generation
             var generator = new EnumerableGenerator(elementGeneratorType: typeof(ConstantGenerator), elementGeneratorConstructorArguments: 42);
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), argumentType, random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), argumentType, random);
 
             Assert.IsInstanceOfType(generatedValue, argumentType);
         }
 
         [TestMethod]
-        public void DefaultsToContextElementGenerator()
+        public void DefaultsToProfileElementGenerator()
         {
             var generator = new EnumerableGenerator();
             var random = new FuzzRandom();
 
-            var context = new Mock<IFuzzContext>();
-            context.Setup(c => c.GeneratorFor(typeof(int))).Returns(new ConstantGenerator(42));
+            var profile = new Mock<IFuzzProfile>();
+            profile.Setup(c => c.GeneratorFor(typeof(int))).Returns(new ConstantGenerator(42));
 
-            var generatedValue = generator.Generate(context.Object, typeof(IList<int>), random);
+            var generatedValue = generator.Generate(profile.Object, typeof(IList<int>), random);
 
             Assert.IsInstanceOfType(generatedValue, typeof(IList<int>));
         }

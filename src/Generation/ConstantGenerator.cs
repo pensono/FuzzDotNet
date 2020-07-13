@@ -23,7 +23,7 @@ namespace FuzzDotNet.Generation
             return _value == null || type.IsAssignableFrom(_value.GetType());
         }
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             return _value;
         }

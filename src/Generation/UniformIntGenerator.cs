@@ -13,7 +13,7 @@ namespace FuzzDotNet.Generation
 
         public override bool CanGenerate(Type type) =>  type == typeof(int);
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             return random.Uniform(Min, Max);
         }

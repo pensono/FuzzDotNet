@@ -25,7 +25,7 @@ namespace FuzzDotNet.Test.Utilities
                 return true;
             }
 
-            public object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+            public object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
             {
                 return null;
             }

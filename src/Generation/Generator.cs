@@ -8,6 +8,6 @@ namespace FuzzDotNet
     {
         public abstract bool CanGenerate(Type type);
 
-        public abstract object? Generate(IFuzzContext context, Type type, FuzzRandom random);
+        public abstract object? Generate(IFuzzProfile profile, Type type, FuzzRandom random);
     }
 }

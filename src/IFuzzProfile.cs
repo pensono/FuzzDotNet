@@ -3,7 +3,7 @@ using System;
 
 namespace FuzzDotNet
 {
-    public interface IFuzzContext
+    public interface IFuzzProfile
     {
         /// <summary>
         /// Gets a generator for some type.

@@ -14,7 +14,7 @@ namespace FuzzDotNet.Test.Generation
             var generator = new UniformIntGenerator();
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), typeof(int), random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), typeof(int), random);
 
             Assert.IsTrue(generatedValue is int);
         }

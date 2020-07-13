@@ -15,7 +15,7 @@ namespace FuzzDotNet.Test.Generation
             var generator = new ChoiceGenerator(1, 2, 3, 4);
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), typeof(int), random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), typeof(int), random);
 
             Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);
@@ -28,7 +28,7 @@ namespace FuzzDotNet.Test.Generation
             var generator = new ChoiceGenerator(new List<object?>{1, 2, 3, 4});
             var random = new FuzzRandom();
 
-            var generatedValue = generator.Generate(Mock.Of<IFuzzContext>(), typeof(int), random);
+            var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), typeof(int), random);
 
             Assert.That.IsType<int>(generatedValue);
             Assert.IsTrue((int)generatedValue < 5);

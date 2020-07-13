@@ -18,13 +18,13 @@ namespace FuzzDotNet.Test.Generation
         public void GeneratesDataClass()
         {
             var generator = new DataObjectGenerator();
-            var result = generator.Generate(new TestFuzzContext(), typeof(DataClass), new FuzzRandom());
+            var result = generator.Generate(new TestFuzzProfile(), typeof(DataClass), new FuzzRandom());
 
             Assert.That.IsType<DataClass>(result);
 
             var obj = (DataClass)result;
-            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.IntProperty);
-            Assert.AreEqual(TestFuzzContext.GeneratedString, obj.StringProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedInt, obj.IntProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedString, obj.StringProperty);
         }
 
         private class HasReadOnlyProperty
@@ -37,12 +37,12 @@ namespace FuzzDotNet.Test.Generation
         public void IgnoresReadOnlyProperty()
         {
             var generator = new DataObjectGenerator();
-            var result = generator.Generate(new TestFuzzContext(), typeof(HasReadOnlyProperty), new FuzzRandom());
+            var result = generator.Generate(new TestFuzzProfile(), typeof(HasReadOnlyProperty), new FuzzRandom());
 
             Assert.That.IsType<HasReadOnlyProperty>(result);
 
             var obj = (HasReadOnlyProperty)result;
-            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.MutableProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedInt, obj.MutableProperty);
             Assert.AreEqual(11, obj.ReadOnlyProperty);
         }
 
@@ -77,14 +77,14 @@ namespace FuzzDotNet.Test.Generation
         public void NestedObjects()
         {
             var generator = new DataObjectGenerator();
-            var result = generator.Generate(new TestFuzzContext(), typeof(Outer), new FuzzRandom());
+            var result = generator.Generate(new TestFuzzProfile(), typeof(Outer), new FuzzRandom());
 
             Assert.That.IsType<Outer>(result);
 
             var obj = (Outer)result;
-            Assert.AreEqual(TestFuzzContext.GeneratedString, obj.StringProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedString, obj.StringProperty);
             Assert.IsNotNull(obj.Inner);
-            Assert.AreEqual(TestFuzzContext.GeneratedInt, obj.Inner!.IntProperty);
+            Assert.AreEqual(TestFuzzProfile.GeneratedInt, obj.Inner!.IntProperty);
         }
     }
 }

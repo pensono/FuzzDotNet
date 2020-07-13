@@ -4,9 +4,9 @@ using FuzzDotNet.Generation;
 namespace FuzzDotNet
 {
     /// <summary>
-    /// A test fuzz context to make things predictable.
+    /// A test fuzz profile to make things predictable.
     /// </summary>
-    public class TestFuzzContext : FuzzContext
+    public class TestFuzzProfile : FuzzProfile
     {
         public const int GeneratedInt = 42;
 

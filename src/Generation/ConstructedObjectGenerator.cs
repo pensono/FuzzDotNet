@@ -14,12 +14,12 @@ namespace FuzzDotNet.Generation
             return type.GetConstructors().Length > 0;
         }
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             var constructor = random.Choice(type.GetConstructors());
 
             var arguments = constructor.GetParameters()
-                .Select(p => context.Generate(p.ParameterType, random));
+                .Select(p => profile.Generate(p.ParameterType, random));
 
             return constructor.Invoke(arguments.ToArray());
         }

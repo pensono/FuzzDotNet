@@ -15,7 +15,7 @@ namespace FuzzDotNet.Generation
     public class EnumerableGenerator : Generator
     {
         /// <summary>
-        /// The element generator. If null, the generator from the context should be used.
+        /// The element generator. If null, the generator from the profile should be used.
         /// </summary>
         private readonly IGenerator? _elementGenerator;
         private readonly double _averageSize;
@@ -49,10 +49,10 @@ namespace FuzzDotNet.Generation
                 && (_elementGenerator == null || _elementGenerator.CanGenerate(type.GetEnumerableElementType()));
         }
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             var elementType = type.GetEnumerableElementType();
-            var elementGenerator = _elementGenerator ?? context.GeneratorFor(elementType);
+            var elementGenerator = _elementGenerator ?? profile.GeneratorFor(elementType);
 
             var length = (int)Math.Round(random.Poisson(_averageSize));
 
@@ -67,7 +67,7 @@ namespace FuzzDotNet.Generation
 
             for (var i = 0; i < length; i++)
             {
-                var element = elementGenerator.Generate(context, elementType, random);
+                var element = elementGenerator.Generate(profile, elementType, random);
                 add.Invoke(result, new[]{ element });
             }
 

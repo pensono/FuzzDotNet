@@ -15,7 +15,7 @@ namespace FuzzDotNet.Generation
             return type.GetConstructor(Array.Empty<Type>()) != null;
         }
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             var constructor = type.GetConstructor(Array.Empty<Type>())!;
             var instance = constructor.Invoke(Array.Empty<object?>());
@@ -27,7 +27,7 @@ namespace FuzzDotNet.Generation
                     continue;
                 }
 
-                var value = context.Generate(property.PropertyType, random);
+                var value = profile.Generate(property.PropertyType, random);
                 property.SetValue(instance, value);
             }
 

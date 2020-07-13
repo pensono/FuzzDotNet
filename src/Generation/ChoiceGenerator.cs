@@ -41,7 +41,7 @@ namespace FuzzDotNet.Generation
             return ItemType.IsAssignableFrom(type);
         }
 
-        public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+        public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {
             return random.Choice(_items);
         }

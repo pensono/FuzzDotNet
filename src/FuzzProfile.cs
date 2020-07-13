@@ -1,13 +1,11 @@
-﻿using FuzzDotNet.Generation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using FuzzDotNet.Generation;
 
 namespace FuzzDotNet
 {
-    public abstract class FuzzContext : IFuzzContext
+    public abstract class FuzzProfile : IFuzzProfile
     {
         public abstract IEnumerable<IGenerator> DefaultGenerators { get; }
 

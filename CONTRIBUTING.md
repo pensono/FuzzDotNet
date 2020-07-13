@@ -1,5 +1,7 @@
 # Contributing to FuzzDotNet
 
+Contributions are welcome! Here's some information to get you started.
+
 ## Development Environment
 
 This project is editor agnostic- use what you like.

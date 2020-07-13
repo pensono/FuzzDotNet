@@ -47,7 +47,7 @@ public class TreeSetGenerator : Generator
 {
     public override bool CanGenerate(Type type) => type == typeof(TreeSet<int>);
 
-    public override object? Generate(IFuzzContext context, Type type, FuzzRandom random)
+    public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
     {
         // Create a reasonably sized tree-set of dubious values
         var result = new TreeSet<int>();
@@ -56,7 +56,7 @@ public class TreeSetGenerator : Generator
         var size = random.Uniform(0, 20);
         for (var i = 0; i < length; i++)
         {
-            result.Add(elementGenerator.Generate(context, type, random));
+            result.Add(elementGenerator.Generate(profile, type, random));
         }
 
         return result;
@@ -77,7 +77,7 @@ public void TestAddContains([TreeSetGenerator] TreeSet<int> set, int element)
 }
 ```
 
-TODO: Example for a specific class, and to add it to the context to make it the default for a project.
+TODO: Example for a specific class, and to add it to the profile to make it the default for a project.
 
 **Note:** As the complexity of your model grows, the distribution of values fuzzed over has a [great impact][1] on the technique's overall effectiveness. Carefully consider the values generated for best results.
 

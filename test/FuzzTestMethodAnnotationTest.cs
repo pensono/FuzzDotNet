@@ -97,6 +97,59 @@ namespace FuzzDotNet.Test
             Assert.AreEqual(1, results.Length);
         }
 
+        private class UnitTestFuzzProfile : NaughtyFuzzProfile { }
+
+        [TestMethod]
+        public void FuzzProfileByType()
+        {
+            var annotation = new FuzzTestMethodAttribute
+            {
+                FuzzProfileType = typeof(UnitTestFuzzProfile),
+            };
+
+            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+        }
+
+        [TestMethod]
+        public void FuzzProfileByValue()
+        {
+            var annotation = new FuzzTestMethodAttribute
+            {
+                FuzzProfile = new UnitTestFuzzProfile(),
+            };
+
+            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+        }
+
+        private class UnitTestInheritanceFuzzProfile : NaughtyFuzzProfile { }
+
+        private class FuzzTestMethodWithProfile : FuzzTestMethodAttribute
+        {
+            protected override IFuzzProfile CreateFuzzProfile()
+            {
+                return new UnitTestInheritanceFuzzProfile();
+            }
+        }
+
+        [TestMethod]
+        public void FuzzProfileByInheritance()
+        {
+            var annotation = new FuzzTestMethodWithProfile();
+
+            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestInheritanceFuzzProfile));
+        }
+
+        [TestMethod]
+        public void FuzzProfileByTypeOverridesInheritance()
+        {
+            var annotation = new FuzzTestMethodWithProfile
+            {
+                FuzzProfileType = typeof(UnitTestFuzzProfile),
+            };
+
+            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+        }
+
         private TestResult[] TestMethodInvocationResults<TTest>()
             where TTest : notnull, new()
         {

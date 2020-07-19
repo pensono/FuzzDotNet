@@ -4,6 +4,8 @@
 
 FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.
 
+[Getting Started](./docs/Getting%20Started.md)
+
 ## Fuzz Testing by Contract
 
 Contracts are useful tools for building software. he author of a CRUD service may want to test that after creating a resource, an identical model can be read back. To test this contract, the author may write a test like this:

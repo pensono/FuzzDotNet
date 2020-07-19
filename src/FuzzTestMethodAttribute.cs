@@ -12,19 +12,66 @@ namespace FuzzDotNet
     [AttributeUsage(AttributeTargets.Method)]  
     public class FuzzTestMethodAttribute : TestMethodAttribute
     {
+        private IFuzzProfile? _fuzzProfile;
+
+        public IFuzzProfile FuzzProfile {
+            get
+            {
+                if (_fuzzProfile == null)
+                {
+                    if (FuzzProfileType == null)
+                    {
+                        _fuzzProfile = CreateFuzzProfile();
+                    } 
+                    else
+                    {
+                        var constructor = FuzzProfileType.GetConstructor(Array.Empty<Type>());
+                        if (constructor == null)
+                        {
+                            // Note that this requirement prohibits parameterized fuzz profiles
+                            // The best way to do this is to subclass FuzzTestMethodAttribute and forward the parameters from that to the fuzz profile
+                            throw new ArgumentException($"Fuzz profile type {FuzzProfileType.FullName} is not default-constructable.");
+                        }
+
+                        _fuzzProfile = (IFuzzProfile)constructor.Invoke(Array.Empty<object?>());
+                    }
+                }
+
+                return _fuzzProfile;
+            }
+
+            set 
+            {
+                _fuzzProfile = value;
+            }
+        }
+
+        /// <summary>
+        /// The type of the fuzz profile to use.
+        /// </summary>
+        /// <remarks>
+        /// Example usage:
+        /// <code>
+        ///         [FuzzTestMethod(FuzzProfileType = typeof(CustomFuzzProfile)]
+        ///         public void FuzzTest(int value)
+        ///         {
+        ///             // ...
+        ///         }
+        /// </code>
+        /// </remarks>
+        public Type? FuzzProfileType { get; set; }
+
         public int Iterations { get; set; } = 20;
 
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            // TODO Use a better way of getting the profile fed in
-            IFuzzProfile profile = new NaughtyFuzzProfile();
             var seedGenerator = new FuzzRandom();
             var results = new List<TestResult>();
             var stopwatch = new Stopwatch();
 
             var argumentGenerators = testMethod.MethodInfo.GetParameters()
                 .Select(parameter => {
-                    var generator = GetGenerator(profile, parameter);
+                    var generator = GetGenerator(FuzzProfile, parameter);
 
                     if (!generator.CanGenerate(parameter.ParameterType))
                     {
@@ -42,7 +89,7 @@ namespace FuzzDotNet
 
                 var arguments = argumentGenerators
                     .Select(g => {
-                        return g.Generator.Generate(profile, g.ParameterType, random);
+                        return g.Generator.Generate(FuzzProfile, g.ParameterType, random);
                     });
 
                 var result = testMethod.Invoke(arguments.ToArray());
@@ -75,6 +122,18 @@ namespace FuzzDotNet
             results.Insert(0, summaryResult);
 
             return results.ToArray();
+        }
+
+        /// <summary>
+        /// Creates a fuzz profile to be used during fuzz tests.
+        /// </summary>
+        /// <remarks>
+        /// This may be overridden to use a custom fuzz profile anywhere a subclass of this attribute is used.
+        /// </remarks>
+        /// <returns>The fuzz profile.</returns>
+        protected virtual IFuzzProfile CreateFuzzProfile()
+        {
+            return new NaughtyFuzzProfile();
         }
 
         private static IGenerator GetGenerator(IFuzzProfile profile, ParameterInfo parameter)

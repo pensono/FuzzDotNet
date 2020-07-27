@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using FuzzDotNet.Formatting;
 using FuzzDotNet.Generation;
+using FuzzDotNet.Notification;
 
 namespace FuzzDotNet
 {
@@ -20,5 +23,7 @@ namespace FuzzDotNet
             new DataObjectGenerator(),
             new ConstructedObjectGenerator(),
         };
+
+        public override INotifier Notifier { get; set; } = new ConsoleNotifier(new JsonFormatter());
     }
 }

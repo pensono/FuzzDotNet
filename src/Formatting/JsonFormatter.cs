@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace FuzzDotNet.Formatting
 {
-    public class JsonFormatter
+    public class JsonFormatter : IFormatter
     {
         private static JsonSerializerOptions DefaultSerializationOptions = new JsonSerializerOptions()
         {

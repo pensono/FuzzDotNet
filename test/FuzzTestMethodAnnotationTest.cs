@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using FuzzDotNet.Generation;
+using FuzzDotNet.Notification;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -149,6 +150,32 @@ namespace FuzzDotNet.Test
 
             Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
         }
+        
+        [TestMethod]
+        public void SendsNotification()
+        {
+            var notifierMock = new Mock<INotifier>();
+
+            var profile = new NaughtyFuzzProfile
+            {
+                Notifier = notifierMock.Object,
+            };
+
+            TestMethodInvocationClass<FailingTestClass>(profile: profile);
+
+            Func<Counterexample, bool> validCounterexample = (Counterexample c) =>
+            {
+                if (c.Arguments.Count != 1)
+                {
+                    return false;
+                }
+
+                var argument = c.Arguments[0];
+                return argument.Name == "i" && (argument.Value as int?) == 4;
+            };
+
+            notifierMock.Verify(n => n.NotifyCounterexample(It.Is<Counterexample>(c => validCounterexample(c))), Times.AtLeastOnce);
+        }
 
         private TestResult[] TestMethodInvocationResults<TTest>()
             where TTest : notnull, new()
@@ -160,13 +187,18 @@ namespace FuzzDotNet.Test
             return attribute.Execute(method);
         }
 
-        private TTest TestMethodInvocationClass<TTest>(int iterations = 20)
+        private TTest TestMethodInvocationClass<TTest>(int iterations = 20, IFuzzProfile? profile = null)
             where TTest : notnull, new()
         {
             var attribute = new FuzzTestMethodAttribute()
             {
                 Iterations = iterations,
             };
+
+            if (profile != null)
+            {
+                attribute.FuzzProfile = profile;
+            }
 
             var fuzzClassInstance = new TTest();
             var method = CreateTestMethodMock(fuzzClassInstance);

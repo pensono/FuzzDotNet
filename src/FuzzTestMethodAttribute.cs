@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using FuzzDotNet.Generation;
-using FuzzDotNet.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet
@@ -90,15 +89,24 @@ namespace FuzzDotNet
                 var arguments = argumentGenerators
                     .Select(g => {
                         return g.Generator.Generate(FuzzProfile, g.ParameterType, random);
-                    });
+                    })
+                    .ToList();
 
                 var result = testMethod.Invoke(arguments.ToArray());
 
                 if (result.Outcome != UnitTestOutcome.Passed)
                 {
                     result.DatarowIndex = seed;
-
                     results.Add(result);
+
+                    // Parameter name will never be null because this paramater is not a return parameter
+                    var fuzzArguments = arguments.Zip(
+                        testMethod.MethodInfo.GetParameters(),
+                        (a, p) => new Argument(p.Name!, a));
+
+                    var counterexample = new Counterexample(testMethod, fuzzArguments.ToList());
+
+                    FuzzProfile.Notifier.NotifyCounterexample(counterexample);
                 }
             }
 

@@ -8,7 +8,7 @@ using Moq;
 namespace FuzzDotNet.Test
 {
     [TestClass]
-    public class FuzzTestMethodAnnotationTest
+    public class FuzzTestMethodAttributeTest
     {
         private class TestIterationsClass
         {

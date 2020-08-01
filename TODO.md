@@ -16,7 +16,6 @@
     - Perhaps implement some for System.ComponentModel.DataAnnotations
 - Make uniform and poisson generators generic to all numeric datatypes
 - GitHub/JIRA bug creation notifier
-- File notifier
 - Composite notifier (for multiple notifications)
 - Conditional notifier
 - Markdown "bug report" formatter

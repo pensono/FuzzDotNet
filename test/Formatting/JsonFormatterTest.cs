@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using FuzzDotNet.Formatting;
+using FuzzDotNet.Test.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -27,7 +28,7 @@ namespace FuzzDotNet.Test.Formatting
   ""string"": ""hello""
 }";
 
-            Assert.AreEqual(expected, formatted);
+            Assert.That.AreEqualIgnoreNewlineStyle(expected, formatted);
         }
 
         [FuzzTestMethod]

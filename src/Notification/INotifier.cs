@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FuzzDotNet.Notification
 {
@@ -10,6 +11,6 @@ namespace FuzzDotNet.Notification
         /// Called any time a counterexample is discovered.
         /// </summary>
         /// <param name="counterexample">The counterexample that was discovered.</param>
-        public void NotifyCounterexample(Counterexample counterexample) { }
+        public Task NotifyCounterexampleAsync(Counterexample counterexample);
     }
 }

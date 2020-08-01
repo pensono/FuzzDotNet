@@ -174,7 +174,7 @@ namespace FuzzDotNet.Test
                 return argument.Name == "i" && (argument.Value as int?) == 4;
             };
 
-            notifierMock.Verify(n => n.NotifyCounterexample(It.Is<Counterexample>(c => validCounterexample(c))), Times.AtLeastOnce);
+            notifierMock.Verify(n => n.NotifyCounterexampleAsync(It.Is<Counterexample>(c => validCounterexample(c))), Times.AtLeastOnce);
         }
 
         private TestResult[] TestMethodInvocationResults<TTest>()

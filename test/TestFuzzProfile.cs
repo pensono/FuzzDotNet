@@ -4,7 +4,7 @@ using FuzzDotNet.Formatting;
 using FuzzDotNet.Generation;
 using FuzzDotNet.Notification;
 
-namespace FuzzDotNet
+namespace FuzzDotNet.Test
 {
     /// <summary>
     /// A test fuzz profile to make things predictable.

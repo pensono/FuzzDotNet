@@ -1,23 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FuzzDotNet.Formatting;
 
 namespace FuzzDotNet.Notification
 {
-    public class ConsoleNotifier : INotifier
+    public class ConsoleNotifier : Notifier
     {
-        private IFormatter _formatter;
+        public ConsoleNotifier(IFormatter formatter) 
+            : base(formatter) {}
 
-        public ConsoleNotifier(IFormatter formatter)
+        public override Task NotifyCounterexampleAsync(Counterexample counterexample)
         {
-            _formatter = formatter;
-        }
-
-        public void NotifyFailure(Counterexample counterexample)
-        {
-            var formatted = _formatter.Format(counterexample);
+            var formatted = Formatter.Format(counterexample);
 
             Console.WriteLine($"Counter-example for {counterexample.TestMethod.TestMethodName}:");
             Console.WriteLine(formatted);
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using FuzzDotNet.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -67,6 +68,7 @@ namespace FuzzDotNet
             var seedGenerator = new FuzzRandom();
             var results = new List<TestResult>();
             var stopwatch = new Stopwatch();
+            var notifyTasks = new List<Task>();
 
             var argumentGenerators = testMethod.MethodInfo.GetParameters()
                 .Select(parameter => {
@@ -106,12 +108,15 @@ namespace FuzzDotNet
 
                     var counterexample = new Counterexample(testMethod, fuzzArguments.ToList());
 
-                    FuzzProfile.Notifier.NotifyCounterexample(counterexample);
+                    var notifyTask = FuzzProfile.Notifier.NotifyCounterexampleAsync(counterexample);
+                    notifyTasks.Add(notifyTask);
                 }
             }
 
             stopwatch.Stop();
             var passedIterationCount = Iterations - results.Count;
+
+            Task.WaitAll(notifyTasks.ToArray());
 
             var summaryResult = new TestResult
             {

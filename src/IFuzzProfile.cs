@@ -1,6 +1,6 @@
+using System;
 using FuzzDotNet.Generation;
 using FuzzDotNet.Notification;
-using System;
 
 namespace FuzzDotNet
 {
@@ -12,10 +12,5 @@ namespace FuzzDotNet
         IGenerator GeneratorFor(Type type);
 
         INotifier Notifier { get; }
-
-        object? Generate(Type type, FuzzRandom random) 
-        {
-            return GeneratorFor(type).Generate(this, type, random);
-        }
     }
 }

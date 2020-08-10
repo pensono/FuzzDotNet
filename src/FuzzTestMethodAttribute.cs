@@ -74,7 +74,7 @@ namespace FuzzDotNet
                 .Select(parameter => {
                     var generator = GetGenerator(FuzzProfile, parameter);
 
-                    if (!generator.CanGenerate(parameter.ParameterType))
+                    if (!generator.CanGenerate(FuzzProfile, parameter.ParameterType))
                     {
                         throw new IncompatibleGeneratorException($"The generator of type {generator.GetType()} cannot generate the parameter {parameter.Name} of type {parameter.ParameterType}");
                     }

@@ -9,7 +9,7 @@ namespace FuzzDotNet.Generation
     /// </summary>
     public class DataObjectGenerator : Generator
     {
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
             // Must be default constructable
             return type.GetConstructor(Array.Empty<Type>()) != null;

@@ -43,10 +43,10 @@ namespace FuzzDotNet.Generation
             _averageSize = averageSize;
         }
 
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
             return GenericImplementationType(type) != null
-                && (_elementGenerator == null || _elementGenerator.CanGenerate(type.GetEnumerableElementType()));
+                && (_elementGenerator == null || _elementGenerator.CanGenerate(profile, type.GetEnumerableElementType()));
         }
 
         public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)

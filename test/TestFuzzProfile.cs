@@ -20,6 +20,7 @@ namespace FuzzDotNet.Test
             new ConstantGenerator(GeneratedString),
             new EnumGenerator(),
             new EnumerableGenerator(),
+            new SubclassGenerator(),
             new DataObjectGenerator(),
             new ConstructedObjectGenerator(),
         };

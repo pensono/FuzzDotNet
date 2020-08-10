@@ -1,6 +1,4 @@
 using System;
-using System.Reflection;
-using System.Linq;
 
 namespace FuzzDotNet.Generation
 {
@@ -8,7 +6,7 @@ namespace FuzzDotNet.Generation
     //public interface IGenerator<out T>
     public interface IGenerator
     {
-        bool CanGenerate(Type type);
+        bool CanGenerate(IFuzzProfile profile, Type type);
 
         /// <summary>
         /// Generates a random value.

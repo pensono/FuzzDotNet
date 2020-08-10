@@ -36,7 +36,7 @@ namespace FuzzDotNet.Generation
             _items = items.OfType<object?>().ToImmutableList();
         }
 
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
             return ItemType.IsAssignableFrom(type);
         }

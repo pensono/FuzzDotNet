@@ -4,7 +4,7 @@ using FuzzDotNet;
 namespace FuzzDotNet.Generation
 {
     /// <summary>
-    /// 
+    /// Always generates the same (user-defined) value.
     /// </summary>
     /// <remarks>
     /// It would be cool if this class could be generic
@@ -18,7 +18,7 @@ namespace FuzzDotNet.Generation
             _value = value;
         }
 
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
             return _value == null || type.IsAssignableFrom(_value.GetType());
         }

@@ -15,7 +15,7 @@ namespace FuzzDotNet
         public virtual IGenerator GeneratorFor(Type type) 
         {
             // TODO memoize the results
-            var generator = DefaultGenerators.FirstOrDefault(generator => generator.CanGenerate(type));
+            var generator = DefaultGenerators.FirstOrDefault(generator => generator.CanGenerate(this, type));
 
             if (generator == null)
             {

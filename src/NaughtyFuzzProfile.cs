@@ -13,6 +13,7 @@ namespace FuzzDotNet
             new NaughtyIntGenerator(),
             new EnumGenerator(),
             new EnumerableGenerator(),
+            new SubclassGenerator(),
             new DataObjectGenerator(),
             new ConstructedObjectGenerator(),
         };

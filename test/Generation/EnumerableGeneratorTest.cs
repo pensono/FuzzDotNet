@@ -16,7 +16,7 @@ namespace FuzzDotNet.Test.Generation
         [DataRow(typeof(int), false)]
         public void CanGenerate(Type type, bool canGenerate)
         {
-            var actual = new EnumerableGenerator().CanGenerate(type);
+            var actual = new EnumerableGenerator().CanGenerate(new TestFuzzProfile(), type);
             
             Assert.AreEqual(canGenerate, actual);
         }

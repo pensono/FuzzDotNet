@@ -19,31 +19,31 @@ Additionally, many projects may use different profiles to perform different task
 The easiest way to integrate fuzz profiles is to subclass `FuzzTestMethodAttribute`.
 
 ```csharp
-        private class CustomFuzzTestMethodAttribute : FuzzTestMethodAttribute
-        {
-            protected override IFuzzProfile CreateFuzzProfile()
-            {
-                return new CustomFuzzProfile();
-            }
-        }
+private class CustomFuzzTestMethodAttribute : FuzzTestMethodAttribute
+{
+    protected override IFuzzProfile CreateFuzzProfile()
+    {
+        return new CustomFuzzProfile();
+    }
+}
 ```
 
-Then, you may use it as follows.
+Now it can be used in fuzz tests like the one below.
 
 ```csharp
-        [CustomFuzzTestMethod]
-        public void FuzzTest(int value) {
-            // ...
-        }
+[CustomFuzzTestMethod]
+public void FuzzTest(int value) {
+    // ...
+}
 ```
 
 ## Per-method Fuzz Profiles
 
-You may set a fuzz profile on a per-method basis. This overrides any fuzz profile set by overriding `FuzzTestMethodAttribute.CreateFuzzProfile`.
+You may set a fuzz profile on a per-method basis. This overrides any fuzz profile set by overriding `FuzzTestMethodAttribute.CreateFuzzProfile`. Note that fuzz profiles configured in this way must be default constructable.
 
 ```csharp
-        [FuzzTestMethod(FuzzProfileType = typeof(CustomFuzzProfile)]
-        public void FuzzTest(int value) {
-            // ...
-        }
+[FuzzTestMethod(FuzzProfileType = typeof(CustomFuzzProfile)]
+public void FuzzTest(int value) {
+    // ...
+}
 ```

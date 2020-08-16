@@ -35,7 +35,7 @@ namespace FuzzDotNet
             return items.GetValue(index);
         }
         
-        public T Choice<T>(params T[] items)
+        public T Choice<T>(T[] items)
         {
             Check.IsTrue(items.Length > 0);
         

@@ -74,11 +74,6 @@ namespace FuzzDotNet
                 .Select(parameter => {
                     var generator = GetGenerator(FuzzProfile, parameter);
 
-                    if (!generator.CanGenerate(parameter.ParameterType))
-                    {
-                        throw new IncompatibleGeneratorException($"The generator of type {generator.GetType()} cannot generate the parameter {parameter.Name} of type {parameter.ParameterType}");
-                    }
-
                     return (Generator: generator, parameter.ParameterType);
                 });
 
@@ -153,7 +148,19 @@ namespace FuzzDotNet
         {
             var generatorAttribute = parameter.GetCustomAttribute<Generator>();
 
-            return generatorAttribute ?? profile.GeneratorFor(parameter.ParameterType);
+            if (generatorAttribute != null)
+            {
+                if (!generatorAttribute.CanGenerate(profile, parameter.ParameterType))
+                {
+                    throw new IncompatibleGeneratorException($"The generator of type {generatorAttribute.GetType()} cannot generate the parameter {parameter.Name} of type {parameter.ParameterType}");
+                }
+
+                return generatorAttribute;
+            }
+            else
+            {
+                return profile.GeneratorForOrThrow(parameter.ParameterType);
+            }
         }
     }
 }

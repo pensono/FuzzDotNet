@@ -20,7 +20,7 @@ namespace FuzzDotNet.Test.Utilities
             {
             }
 
-            public bool CanGenerate(Type type)
+            public bool CanGenerate(IFuzzProfile profile, Type type)
             {
                 return true;
             }

@@ -8,6 +8,7 @@
     - Let the user specify in YAML a test, or at least some complex inputs to a test
 - Subclass tests
     - Write some test that specifies properties which all subclasses must adhere to
+    - Test this by creating a test which asserts that CanGenerate -> Generate succeeds
 - Naughty float/double
 - Seed control
 - Documentation of philosophy and examples
@@ -17,6 +18,9 @@
 - Make uniform and poisson generators generic to all numeric datatypes
 - GitHub/JIRA bug creation notifier
 - Markdown "bug report" formatter
+- Generate nullable types
+- Type generator
+- Object generator
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

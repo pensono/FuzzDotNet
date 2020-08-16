@@ -7,7 +7,7 @@ namespace FuzzDotNet.Generation
 {
     public class EnumGenerator : Generator
     {
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
             return type.IsEnum;
         }

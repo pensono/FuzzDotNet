@@ -2,6 +2,7 @@
 using FuzzDotNet.Generation;
 using FuzzDotNet.Test.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace FuzzDotNet.Test.Generation
 {
@@ -44,7 +45,7 @@ namespace FuzzDotNet.Test.Generation
         public void RejectNonConstructable()
         {
             var generator = new ConstructedObjectGenerator();
-            Assert.IsFalse(generator.CanGenerate(typeof(NonConstructable)));
+            Assert.IsFalse(generator.CanGenerate(Mock.Of<IFuzzProfile>(), typeof(NonConstructable)));
         }
     }
 }

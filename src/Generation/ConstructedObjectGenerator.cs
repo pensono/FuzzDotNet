@@ -9,9 +9,10 @@ namespace FuzzDotNet.Generation
     /// </summary>
     public class ConstructedObjectGenerator : Generator
     {
-        public override bool CanGenerate(Type type)
+        public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
-            return type.GetConstructors().Length > 0;
+            return type.GetConstructors().Length > 0 
+                && !type.ContainsGenericParameters;
         }
 
         public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)

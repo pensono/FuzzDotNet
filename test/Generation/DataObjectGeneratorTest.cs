@@ -2,6 +2,7 @@
 using FuzzDotNet.Generation;
 using FuzzDotNet.Test.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace FuzzDotNet.Test.Generation
 {
@@ -58,7 +59,7 @@ namespace FuzzDotNet.Test.Generation
         public void RejectNonDefaultConstructable()
         {
             var generator = new DataObjectGenerator();
-            Assert.IsFalse(generator.CanGenerate(typeof(NotDefaultConstructable)));
+            Assert.IsFalse(generator.CanGenerate(Mock.Of<IFuzzProfile>(), typeof(NotDefaultConstructable)));
         }
         
         private class Outer

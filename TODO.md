@@ -20,7 +20,6 @@
 - Markdown "bug report" formatter
 - Generate nullable types
 - Type generator
-- Object generator
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

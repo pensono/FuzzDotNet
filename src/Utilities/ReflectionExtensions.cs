@@ -20,5 +20,33 @@ namespace FuzzDotNet.Utilities
                 .Select(t => t.GetGenericArguments()[0])
                 .FirstOrDefault();
         }
+
+        public static TParameter GetDefaultConstructableParameter<TParameter>(ref TParameter? parameterField, Type? specifiedType, Func<TParameter> createDefault)
+            where TParameter: class
+        {
+            if (parameterField == null)
+            {
+                if (specifiedType == null)
+                {
+                    parameterField = createDefault();
+                }
+                else if (!typeof(TParameter).IsAssignableFrom(specifiedType))
+                {
+                    throw new ArgumentException($"Parameter type {specifiedType.FullName} must be a subclass of {typeof(TParameter)}.");
+                }
+                else
+                {
+                    var constructor = specifiedType.GetConstructor(Array.Empty<Type>());
+                    if (constructor == null)
+                    {
+                        throw new ArgumentException($"Parameter type {specifiedType.FullName} is not default-constructable.");
+                    }
+
+                    parameterField = (TParameter)constructor.Invoke(Array.Empty<object?>());
+                }
+            }
+
+            return parameterField;
+        }
     }
 }

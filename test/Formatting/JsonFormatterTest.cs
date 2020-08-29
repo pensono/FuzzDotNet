@@ -41,7 +41,6 @@ namespace FuzzDotNet.Test.Formatting
 
             var formatter = new JsonFormatter();
             var formatted = formatter.Format(new Counterexample(Mock.Of<ITestMethod>(), arguments));
-
             Assert.IsFalse(formatted.EndsWith("\n"));
         }
     }

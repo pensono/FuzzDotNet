@@ -74,10 +74,13 @@ namespace FuzzDotNet.Test
             // +1 for the summary item
             Assert.AreEqual(20 + 1, results.Length);
 
-            // Results should have a seed associated with them in the DataTestRow field
             foreach (var result in results)
             {
+                // Results should have a seed associated with them in the DataTestRow field
                 Assert.AreNotEqual(0, result.DatarowIndex);
+
+                // Make sure something was logged to the user for debug purposes
+                Assert.IsNotNull(result.TestContextMessages);
             }
         }
 
@@ -109,6 +112,17 @@ namespace FuzzDotNet.Test
             };
 
             Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+        }
+
+        [TestMethod]
+        public void FuzzProfileByTypeNotAFuzzProfile()
+        {
+            var annotation = new FuzzTestMethodAttribute
+            {
+                FuzzProfileType = typeof(object),
+            };
+
+            Assert.ThrowsException<ArgumentException>(() => annotation.FuzzProfile);
         }
 
         [TestMethod]

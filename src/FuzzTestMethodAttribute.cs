@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FuzzDotNet.Formatting;
 using FuzzDotNet.Generation;
+using FuzzDotNet.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet
@@ -15,35 +17,10 @@ namespace FuzzDotNet
         private IFuzzProfile? _fuzzProfile;
 
         public IFuzzProfile FuzzProfile {
-            get
-            {
-                if (_fuzzProfile == null)
-                {
-                    if (FuzzProfileType == null)
-                    {
-                        _fuzzProfile = CreateFuzzProfile();
-                    } 
-                    else
-                    {
-                        var constructor = FuzzProfileType.GetConstructor(Array.Empty<Type>());
-                        if (constructor == null)
-                        {
-                            // Note that this requirement prohibits parameterized fuzz profiles
-                            // The best way to do this is to subclass FuzzTestMethodAttribute and forward the parameters from that to the fuzz profile
-                            throw new ArgumentException($"Fuzz profile type {FuzzProfileType.FullName} is not default-constructable.");
-                        }
-
-                        _fuzzProfile = (IFuzzProfile)constructor.Invoke(Array.Empty<object?>());
-                    }
-                }
-
-                return _fuzzProfile;
-            }
-
-            set 
-            {
-                _fuzzProfile = value;
-            }
+            // Note that this requirement prohibits parameterized fuzz profiles
+            // The best way to do this is to subclass FuzzTestMethodAttribute and forward the parameters from that to the fuzz profile
+            get => ReflectionExtensions.GetDefaultConstructableParameter(ref _fuzzProfile, FuzzProfileType, CreateFuzzProfile);
+            set => _fuzzProfile = value;
         }
 
         /// <summary>
@@ -52,14 +29,37 @@ namespace FuzzDotNet
         /// <remarks>
         /// Example usage:
         /// <code>
-        ///         [FuzzTestMethod(FuzzProfileType = typeof(CustomFuzzProfile)]
-        ///         public void FuzzTest(int value)
-        ///         {
-        ///             // ...
-        ///         }
+        /// [FuzzTestMethod(FuzzProfileType = typeof(CustomFuzzProfile)]
+        /// public void FuzzTest(int value)
+        /// {
+        ///     // ...
+        /// }
         /// </code>
         /// </remarks>
         public Type? FuzzProfileType { get; set; }
+
+        private IFormatter? _resultFormatter;
+
+        // Does this property belong here? Or in the FuzzProfile?
+        public IFormatter TestResultFormatter {
+            get => ReflectionExtensions.GetDefaultConstructableParameter(ref _resultFormatter, TestResultFormatterType, CreateTestResultFormatter);
+            set => _resultFormatter = value;
+        }
+
+        /// <summary>
+        /// The type of the formatter to use when creating TestResults for MSTest.
+        /// </summary>
+        /// <remarks>
+        /// Example usage:
+        /// <code>
+        /// [FuzzTestMethod(TestResultFormatterType = typeof(JsonFormatter)]
+        /// public void FuzzTest(int value)
+        /// {
+        ///     // ...
+        /// }
+        /// </code>
+        /// </remarks>
+        public Type? TestResultFormatterType { get; set; }
 
         public int Iterations { get; set; } = 20;
 
@@ -93,15 +93,16 @@ namespace FuzzDotNet
 
                 if (result.Outcome != UnitTestOutcome.Passed)
                 {
-                    result.DatarowIndex = seed;
-                    results.Add(result);
-
                     // Parameter name will never be null because this paramater is not a return parameter
                     var fuzzArguments = arguments.Zip(
                         testMethod.MethodInfo.GetParameters(),
                         (a, p) => new Argument(p.Name!, a));
 
                     var counterexample = new Counterexample(testMethod, fuzzArguments.ToList());
+
+                    result.DatarowIndex = seed;
+                    result.TestContextMessages = TestResultFormatter.Format(counterexample);
+                    results.Add(result);
 
                     var notifyTask = FuzzProfile.Notifier.NotifyCounterexampleAsync(counterexample);
                     notifyTasks.Add(notifyTask);
@@ -116,7 +117,7 @@ namespace FuzzDotNet
             var summaryResult = new TestResult
             {
                 Outcome = UnitTestOutcome.Passed,
-                Duration = stopwatch.Elapsed,
+                Duration = stopwatch.Elapsed - results.Aggregate(TimeSpan.Zero, (acc, result) => acc + result.Duration),
                 TestContextMessages = $"{testMethod.TestMethodName} ({passedIterationCount} iterations passed)",
             };
 
@@ -142,6 +143,19 @@ namespace FuzzDotNet
         protected virtual IFuzzProfile CreateFuzzProfile()
         {
             return new NaughtyFuzzProfile();
+        }
+
+        /// <summary>
+        /// Creates a result formatter to be used when a fuzz test finds a counterexample.
+        /// </summary>
+        /// <remarks>
+        /// This may be overridden to use a custom fuzz profile anywhere a subclass of this attribute is used.
+        /// </remarks>
+        /// <returns>The formatter.</returns>
+        protected virtual IFormatter CreateTestResultFormatter()
+        {
+            // TODO default this to YAML. It's more human-readable
+            return new JsonFormatter();
         }
 
         private static IGenerator GetGenerator(IFuzzProfile profile, ParameterInfo parameter)

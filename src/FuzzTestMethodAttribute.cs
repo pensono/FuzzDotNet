@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -77,6 +78,9 @@ namespace FuzzDotNet
                     return (Generator: generator, parameter.ParameterType);
                 });
 
+            var dataSourceResults = InvokeDataSourceTests(testMethod);
+            results.AddRange(dataSourceResults);
+
             stopwatch.Start();
             for (var iteration = 0; iteration < Iterations; iteration++)
             {
@@ -131,6 +135,28 @@ namespace FuzzDotNet
             results.Insert(0, summaryResult);
 
             return results.ToArray();
+        }
+
+        private IEnumerable<TestResult> InvokeDataSourceTests(ITestMethod testMethod)
+        {
+            // Unfortunately, MSTest doesn't seem to expose an easy way to get the data rows.
+            // Referenced: https://github.com/microsoft/testfx/blob/efa1a6d93497719b51ada27787d7f6fcfdd24afe/src/Adapter/MSTest.CoreAdapter/Execution/TestMethodRunner.cs
+            var dataSources = testMethod.MethodInfo.GetCustomAttributes<Attribute>().OfType<ITestDataSource>().ToList();
+
+            foreach (var dataSource in dataSources)
+            {
+                var rows = dataSource.GetData(testMethod.MethodInfo).ToList();
+
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    var result = testMethod.Invoke(rows[i]);
+
+                    result.DatarowIndex = i;
+                    result.DisplayName = dataSource.GetDisplayName(testMethod.MethodInfo, rows[i]);
+
+                    yield return result;
+                }
+            }
         }
 
         /// <summary>

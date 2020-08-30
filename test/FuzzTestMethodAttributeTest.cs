@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using FuzzDotNet.Generation;
 using FuzzDotNet.Notification;
@@ -189,6 +191,25 @@ namespace FuzzDotNet.Test
             };
 
             notifierMock.Verify(n => n.NotifyCounterexampleAsync(It.Is<Counterexample>(c => validCounterexample(c))), Times.AtLeastOnce);
+        }
+
+        private class DataDrivenTestClass
+        {
+            public IList<int> GeneratedValues { get; } = new List<int>();
+
+            [FuzzTestMethod]
+            [DataRow(137)]
+            public void Method([ConstantGenerator(42)] int i)
+            {
+                GeneratedValues.Add(i);
+            }
+        }
+
+        [TestMethod]
+        public void UsesDataDrivenTests()
+        {
+            var fuzzClassInstance = TestMethodInvocationClass<DataDrivenTestClass>(iterations: 1);
+            CollectionAssert.AreEqual(new List<int> { 137, 42 }, (ICollection)fuzzClassInstance.GeneratedValues);
         }
 
         private TestResult[] TestMethodInvocationResults<TTest>()

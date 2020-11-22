@@ -12,7 +12,7 @@ namespace FuzzDotNet.Test.Simplification
         [FuzzTestMethod]
         public void TestSimplify([UniformIntGenerator] int number, [UniformIntGenerator] int cutoff)
         {
-            bool predicate(int i) => Math.Abs(i) >= Math.Abs(cutoff);
+            bool predicate(object? input) => input is int i && Math.Abs(i) >= Math.Abs(cutoff);
 
             if (cutoff == int.MinValue || !predicate(number))
             {
@@ -21,7 +21,7 @@ namespace FuzzDotNet.Test.Simplification
 
             var simplifier = new BinarySearchIntegerSimplifier();
 
-            var simplified = simplifier.Simplify(number, predicate);
+            var simplified = simplifier.SimplifyInstance(new TestFuzzProfile(), number, predicate);
 
             Assert.AreEqual(Math.Abs(cutoff), Math.Abs(simplified));
         }

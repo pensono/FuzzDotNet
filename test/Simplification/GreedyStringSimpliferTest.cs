@@ -18,7 +18,8 @@ namespace FuzzDotNet.Test.Simplification
 
             var simplifier = new GreedyStringSimplifier();
 
-            var simplified = simplifier.Simplify(input, s => s.Length >= maxLength);
+            bool predicate(object? input) => input is string s && s.Length >= maxLength;
+            var simplified = simplifier.SimplifyInstance(new TestFuzzProfile(), input, predicate);
 
             Assert.AreEqual(simplified.Length, maxLength, $"Input: {input} Simplified: {simplified}");
         }

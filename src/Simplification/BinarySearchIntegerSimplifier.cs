@@ -1,7 +1,7 @@
 ﻿namespace FuzzDotNet.Simplification
 {
     /// <summary>
-    /// Uses a binary search to simplify integers.
+    /// Uses a binary search to simplify integers towards zero.
     /// </summary>
     public class BinarySearchIntegerSimplifier : BinarySearchSimplifier<int>
     {

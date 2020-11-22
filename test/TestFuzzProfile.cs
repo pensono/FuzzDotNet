@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FuzzDotNet.Formatting;
 using FuzzDotNet.Generation;
 using FuzzDotNet.Notification;
+using FuzzDotNet.Simplification;
 
 namespace FuzzDotNet.Test
 {
@@ -15,7 +16,7 @@ namespace FuzzDotNet.Test
 
         public const string GeneratedString = "The spanish inquisition";
 
-        public override IEnumerable<IGenerator> DefaultGenerators => new List<IGenerator> {
+        public override IEnumerable<IGenerator> Generators => new List<IGenerator> {
             new ConstantGenerator(GeneratedInt),
             new ConstantGenerator(GeneratedString),
             new EnumGenerator(),
@@ -23,6 +24,13 @@ namespace FuzzDotNet.Test
             new SubclassGenerator(),
             new DataObjectGenerator(),
             new ConstructedObjectGenerator(),
+        };
+
+        public override IEnumerable<ISimplifier> Simplifiers => new List<ISimplifier>
+        {
+            new BinarySearchIntegerSimplifier(),
+            new GreedyStringSimplifier(),
+            new DataObjectSimplifier(),
         };
 
         public override INotifier Notifier { get; set; } = new ConsoleNotifier(new JsonFormatter());

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace FuzzDotNet.Utilities
 {
@@ -22,7 +23,7 @@ namespace FuzzDotNet.Utilities
         }
 
         public static TParameter GetDefaultConstructableParameter<TParameter>(ref TParameter? parameterField, Type? specifiedType, Func<TParameter> createDefault)
-            where TParameter: class
+            where TParameter : class
         {
             if (parameterField == null)
             {
@@ -47,6 +48,18 @@ namespace FuzzDotNet.Utilities
             }
 
             return parameterField;
+        }
+
+        public static bool IsDataObject(this Type type)
+        {
+            // Must be default constructable
+            return type.GetConstructor(Array.Empty<Type>()) != null
+                && !type.ContainsGenericParameters;
+        }
+
+        public static IEnumerable<PropertyInfo> GetDataProperties(this Type type)
+        {
+            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FuzzDotNet.Simplification
 {
@@ -8,7 +6,7 @@ namespace FuzzDotNet.Simplification
     /// A simplifier that works by performing a binary search between the input and the minimum value in the domain.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BinarySearchSimplifier<T> : ISimplifier<T>
+    public abstract class BinarySearchSimplifier<T> : SimplifierBase<T>
         where T : IEquatable<T>
     {
         /// <summary>
@@ -42,7 +40,7 @@ namespace FuzzDotNet.Simplification
         /// <returns>The midpoint.</returns>
         public abstract T Midpoint(T low, T high);
 
-        public T Simplify(T input, Func<T, bool> isValid)
+        public override T SimplifyInstance(IFuzzProfile profile, T input, Func<object?, bool> isValid)
         {
             if (isValid(DomainMinimum))
             {

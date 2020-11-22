@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using FuzzDotNet.Utilities;
+using System;
 using System.Linq;
-using System.Reflection;
 
 namespace FuzzDotNet.Generation
 {
@@ -14,10 +12,8 @@ namespace FuzzDotNet.Generation
     {
         public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
-            // Must be default constructable
-            return type.GetConstructor(Array.Empty<Type>()) != null
-                && !type.ContainsGenericParameters
-                && GetDataProperties(type).All(p => profile.GeneratorFor(p.PropertyType) != null);
+            return type.IsDataObject()
+                && type.GetDataProperties().All(p => profile.GeneratorFor(p.PropertyType) != null);
         }
 
         public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
@@ -25,7 +21,7 @@ namespace FuzzDotNet.Generation
             var constructor = type.GetConstructor(Array.Empty<Type>())!;
             var instance = constructor.Invoke(Array.Empty<object?>());
 
-            foreach (var property in GetDataProperties(type)) 
+            foreach (var property in type.GetDataProperties()) 
             {
                 if (!property.CanWrite) 
                 {
@@ -37,11 +33,6 @@ namespace FuzzDotNet.Generation
             }
 
             return instance;
-        }
-
-        private static IEnumerable<PropertyInfo> GetDataProperties(Type type)
-        {
-            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }

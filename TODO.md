@@ -2,6 +2,7 @@
     - Make sure this works with inheritance somehow
 - Interesting generators
     - Regex generator. Generates strings which match a regex
+    - PodType generator.
 - Reduce setup overhead
 - Simplification of counterexamples
 - Data Driven Tests
@@ -20,6 +21,8 @@
 - Markdown "bug report" formatter
 - Generate nullable types
 - Type generator
+- Better profile configurability for subclasses
+    - Add generators/simplifiers before/after others
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

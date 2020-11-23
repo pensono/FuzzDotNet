@@ -1,9 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Build -->
   <ItemGroup>
-    <PackageReference Update="Microsoft.Build.CentralPackageVersions" Version="[2.0.1]" />
-    <PackageReference Update="Microsoft.Build.Traversal" Version="[15.5.0]" />
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="[1.0.0]" />
+    <PackageReference Update="Microsoft.Build.CentralPackageVersions" Version="2.0.79" />
+    <PackageReference Update="Microsoft.Build.Traversal" Version="3.0.2" />
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" />
   </ItemGroup>
 
   <!-- Runtime -->
@@ -15,8 +15,8 @@
 
   <!-- Test -->
   <ItemGroup>
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="[15.3.0]" />
-    <PackageReference Update="MSTest.TestAdapter" Version="[2.1.0]" />
-    <PackageReference Update="Moq" Version="[4.13.1]" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+    <PackageReference Update="MSTest.TestAdapter" Version="2.1.2" />
+    <PackageReference Update="Moq" Version="4.13.1" />
   </ItemGroup>
 </Project>

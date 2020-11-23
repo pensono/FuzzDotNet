@@ -1,6 +1,6 @@
 # FuzzDotNet
 
-[![.NET Core](https://github.com/pensono/FuzzDotNet/workflows/.NET%20Core/badge.svg)](https://github.com/pensono/FuzzDotNet/actions)
+[![.NET Core](https://github.com/pensono/FuzzDotNet/workflows/Build%20Validation/badge.svg)](https://github.com/pensono/FuzzDotNet/actions)
 
 FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.
 

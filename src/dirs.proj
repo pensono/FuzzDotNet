@@ -2,7 +2,7 @@
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
 
   <ItemGroup>
-    <ProjectReference Include="src/dirs.proj" />
-    <ProjectReference Include="test/FuzzDotNet.Test.csproj" />
+    <ProjectReference Include="Core/FuzzDotNet.Core.csproj" />
+    <ProjectReference Include="MSTest/FuzzDotNet.MSTest.csproj" />
   </ItemGroup>
 </Project>

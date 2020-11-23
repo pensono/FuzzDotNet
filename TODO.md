@@ -2,7 +2,6 @@
     - Make sure this works with inheritance somehow
 - Interesting generators
     - Regex generator. Generates strings which match a regex
-    - PodType generator.
 - Reduce setup overhead
 - Simplification of counterexamples
 - Data Driven Tests

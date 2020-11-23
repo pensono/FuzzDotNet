@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
+    <nullable>enable</nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,7 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../src/FuzzDotNet.csproj" />
+    <ProjectReference Include="../src/Core/FuzzDotNet.Core.csproj" />
+    <ProjectReference Include="../src/MSTest/FuzzDotNet.MSTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

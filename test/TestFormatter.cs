@@ -1,4 +1,5 @@
-using FuzzDotNet.Formatting;
+using FuzzDotNet.Core;
+using FuzzDotNet.Core.Formatting;
 
 namespace FuzzDotNet.Test
 {

@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.MSTest
 {
-    [AttributeUsage(AttributeTargets.Method)]  
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]  
     public class FuzzTestMethodAttribute : TestMethodAttribute
     {
         private IFuzzProfile? _fuzzProfile;
@@ -67,17 +67,10 @@ namespace FuzzDotNet.MSTest
 
         public override TestResult[] Execute(ITestMethod testMethod)
         {
-            var seedGenerator = new FuzzRandom();
             var results = new List<TestResult>();
             var stopwatch = new Stopwatch();
             var notifyTasks = new List<Task>();
-
-            var argumentGenerators = testMethod.MethodInfo.GetParameters()
-                .Select(parameter => {
-                    var generator = GetGenerator(FuzzProfile, parameter);
-
-                    return (Generator: generator, parameter.ParameterType);
-                });
+            var arguments = FuzzTestDriver.GenerateArguments(FuzzProfile, testMethod.MethodInfo).GetEnumerator();
 
             var dataSourceResults = InvokeDataSourceTests(testMethod);
             results.AddRange(dataSourceResults);
@@ -85,21 +78,13 @@ namespace FuzzDotNet.MSTest
             stopwatch.Start();
             for (var iteration = 0; iteration < Iterations; iteration++)
             {
-                var seed = seedGenerator.Uniform(int.MinValue, int.MaxValue);
-                var random = new FuzzRandom(seed);
-
-                var arguments = argumentGenerators
-                    .Select(g => {
-                        return g.Generator.Generate(FuzzProfile, g.ParameterType, random);
-                    })
-                    .ToList();
-
-                var result = testMethod.Invoke(arguments.ToArray());
+                arguments.MoveNext();
+                var result = testMethod.Invoke(arguments.Current);
 
                 if (result.Outcome != UnitTestOutcome.Passed)
                 {
                     // Parameter name will never be null because this paramater is not a return parameter
-                    var fuzzArguments = arguments.Zip(
+                    var fuzzArguments = arguments.Current.Zip(
                         testMethod.MethodInfo.GetParameters(),
                         (a, p) => new Argument(p.Name!, a));
 
@@ -116,8 +101,6 @@ namespace FuzzDotNet.MSTest
 
             stopwatch.Stop();
             var passedIterationCount = Iterations - results.Count;
-
-            Task.WaitAll(notifyTasks.ToArray());
 
             var summaryResult = new TestResult
             {
@@ -183,25 +166,6 @@ namespace FuzzDotNet.MSTest
         {
             // TODO default this to YAML. It's more human-readable
             return new JsonFormatter();
-        }
-
-        private static IGenerator GetGenerator(IFuzzProfile profile, ParameterInfo parameter)
-        {
-            var generatorAttribute = parameter.GetCustomAttribute<Generator>();
-
-            if (generatorAttribute != null)
-            {
-                if (!generatorAttribute.CanGenerate(profile, parameter.ParameterType))
-                {
-                    throw new IncompatibleGeneratorException($"The generator of type {generatorAttribute.GetType()} cannot generate the parameter {parameter.Name} of type {parameter.ParameterType}");
-                }
-
-                return generatorAttribute;
-            }
-            else
-            {
-                return profile.GeneratorForOrThrow(parameter.ParameterType);
-            }
         }
     }
 }

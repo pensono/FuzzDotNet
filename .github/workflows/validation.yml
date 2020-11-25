@@ -1,6 +1,10 @@
 name: Build Validation
 
-on: [push, pull_request]
+on: 
+  push:
+    branches_ignore:
+      - wip/**
+  pull_request:
 
 jobs:
   Validation:

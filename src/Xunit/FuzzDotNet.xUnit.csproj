@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Core/FuzzDotNet.Core.csproj" />
+  </ItemGroup>
+</Project>

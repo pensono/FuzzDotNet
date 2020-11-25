@@ -69,5 +69,18 @@ namespace FuzzDotNet.Core
 
             return _random.Next(min, max);
         }
+
+        /// <summary>
+        /// Spawns a new random instance from this one.
+        /// </summary>
+        /// <remarks>
+        /// Operations on the nested random will not affect the parent.
+        /// </remarks>
+        /// <returns>A new random instance.</returns>
+        public FuzzRandom CreatedNested()
+        {
+            var nestedSeed = Uniform(int.MinValue, int.MaxValue);
+            return new FuzzRandom(nestedSeed);
+        }
     }
 }

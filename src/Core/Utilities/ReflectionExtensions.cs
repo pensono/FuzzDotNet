@@ -9,6 +9,8 @@ namespace FuzzDotNet.Core.Utilities
     {
         public static Type GetEnumerableElementType(this Type enumerableType)
         {
+            Check.IsNotNull(enumerableType);
+
             // Inspired by https://stackoverflow.com/a/906513/2496050
             if (enumerableType.IsGenericType && enumerableType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
             {

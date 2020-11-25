@@ -70,7 +70,7 @@ namespace FuzzDotNet.MSTest
             var results = new List<TestResult>();
             var stopwatch = new Stopwatch();
             var notifyTasks = new List<Task>();
-            var arguments = FuzzTestDriver.GenerateArguments(FuzzProfile, testMethod.MethodInfo).GetEnumerator();
+            var argumentGenerator = new FuzzArgumentGenerator(FuzzProfile, testMethod.MethodInfo);
 
             var dataSourceResults = InvokeDataSourceTests(testMethod);
             results.AddRange(dataSourceResults);
@@ -78,19 +78,19 @@ namespace FuzzDotNet.MSTest
             stopwatch.Start();
             for (var iteration = 0; iteration < Iterations; iteration++)
             {
-                arguments.MoveNext();
-                var result = testMethod.Invoke(arguments.Current);
+                argumentGenerator.MoveNext();
+                var result = testMethod.Invoke(argumentGenerator.CurrentArguments);
 
                 if (result.Outcome != UnitTestOutcome.Passed)
                 {
                     // Parameter name will never be null because this paramater is not a return parameter
-                    var fuzzArguments = arguments.Current.Zip(
+                    var fuzzArguments = argumentGenerator.CurrentArguments.Zip(
                         testMethod.MethodInfo.GetParameters(),
                         (a, p) => new Argument(p.Name!, a));
 
                     var counterexample = new Counterexample(testMethod, fuzzArguments.ToList());
 
-                    result.DatarowIndex = seed;
+                    result.DatarowIndex = argumentGenerator.CurrentSeed;
                     result.TestContextMessages = TestResultFormatter.Format(counterexample);
                     results.Add(result);
 

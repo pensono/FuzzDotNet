@@ -31,36 +31,6 @@ namespace FuzzDotNet.Test.MSTest
             Assert.AreEqual(iterations, fuzzClassInstance.Invocations);
         }
 
-        private class ParameterGeneratorTestClass {
-            public int GeneratedValue { get; private set; } = 0;
-
-            [FuzzTestMethod]
-            public void Method([ConstantGenerator(42)] int i)
-            {
-                GeneratedValue = i;
-            }
-        }
-
-        [TestMethod]
-        public void ParameterGenerator() {
-            var fuzzClassInstance = TestMethodInvocationClass<ParameterGeneratorTestClass>();
-            Assert.AreEqual(42, fuzzClassInstance.GeneratedValue);
-        }
-
-        private class GeneratorAttributeWrongConstructorArgumentTypeClass
-        {
-            [FuzzTestMethod]
-            public void Method([ConstantGenerator("not an int")] int i)
-            {
-            }
-        }
-
-        [TestMethod]
-        public void GeneratorAttributeWrongArgumentTypeThrows()
-        {
-            Assert.ThrowsException<IncompatibleGeneratorException>(() => TestMethodInvocationClass<GeneratorAttributeWrongConstructorArgumentTypeClass>());
-        }
-
         private class FailingTestClass
         {
             [FuzzTestMethod]

@@ -2,7 +2,7 @@ name: Build Validation
 
 on: 
   push:
-    branches_ignore:
+    branches-ignore:
       - wip/**
   pull_request:
 

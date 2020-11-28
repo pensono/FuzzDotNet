@@ -4,6 +4,7 @@
   <ItemGroup>
     <ProjectReference Include="../src/Core/FuzzDotNet.Core.csproj" />
     <ProjectReference Include="../src/MSTest/FuzzDotNet.MSTest.csproj" />
+    <ProjectReference Include="../src/Xunit/FuzzDotNet.Xunit.csproj" />
   </ItemGroup>
 
   <ItemGroup>

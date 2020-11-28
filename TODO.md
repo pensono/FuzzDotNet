@@ -22,6 +22,7 @@
 - Type generator
 - Better profile configurability for subclasses
     - Add generators/simplifiers before/after others
+- Disallow negative iteration counts in test attributes
 
 - Support for different generation profiles
   - Provide by default Naughty (for fuzz testing) and Realistic (for load testing)

@@ -2,9 +2,8 @@ using System;
 using System.Linq;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Generation;
-using FuzzDotNet.Test.TestUtilities;
+using FuzzDotNet.Test.Common;
 using FuzzDotNet.Xunit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 
 namespace FuzzDotNet.Test.Xunit
@@ -23,7 +22,7 @@ namespace FuzzDotNet.Test.Xunit
 
             var results = dataAttribute.GetData(testMethod);
 
-            Assert.AreEqual(results.Count(), iterations);
+            Assert.Equal(results.Count(), iterations);
         }
 
         private class UnitTestFuzzProfile : NaughtyFuzzProfile { }
@@ -36,7 +35,7 @@ namespace FuzzDotNet.Test.Xunit
                 FuzzProfileType = typeof(UnitTestFuzzProfile),
             };
 
-            Assert.That.IsType<UnitTestFuzzProfile>(dataAttribute.FuzzProfile);
+            Assert.IsType<UnitTestFuzzProfile>(dataAttribute.FuzzProfile);
         }
 
         [Fact]
@@ -47,7 +46,7 @@ namespace FuzzDotNet.Test.Xunit
                 FuzzProfileType = typeof(object),
             };
 
-            Assert.ThrowsException<ArgumentException>(() => annotation.FuzzProfile);
+            Assert.Throws<ArgumentException>(() => annotation.FuzzProfile);
         }
 
         [Fact]
@@ -58,7 +57,7 @@ namespace FuzzDotNet.Test.Xunit
                 FuzzProfile = new UnitTestFuzzProfile(),
             };
 
-            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+            Assert.IsType<UnitTestFuzzProfile>(annotation.FuzzProfile);
         }
 
         private class UnitTestInheritanceFuzzProfile : NaughtyFuzzProfile { }
@@ -76,7 +75,7 @@ namespace FuzzDotNet.Test.Xunit
         {
             var annotation = new FuzzTestMethodWithProfile();
 
-            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestInheritanceFuzzProfile));
+            Assert.IsType<UnitTestInheritanceFuzzProfile>(annotation.FuzzProfile);
         }
 
         [Fact]
@@ -87,7 +86,7 @@ namespace FuzzDotNet.Test.Xunit
                 FuzzProfileType = typeof(UnitTestFuzzProfile),
             };
 
-            Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
+            Assert.IsType<UnitTestFuzzProfile>(annotation.FuzzProfile);
         }
     }
 }

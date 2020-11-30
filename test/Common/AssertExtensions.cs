@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FuzzDotNet.Test.TestUtilities
+namespace FuzzDotNet.Test.Common
 {
     public static class AssertExtensions
     {

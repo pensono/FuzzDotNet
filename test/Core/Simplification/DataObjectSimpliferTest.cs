@@ -1,6 +1,6 @@
 ﻿using FuzzDotNet.Core.Simplification;
 using FuzzDotNet.MSTest;
-using FuzzDotNet.Test.TestUtilities;
+using FuzzDotNet.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.Test.Core.Simplification

@@ -15,14 +15,16 @@
   <!-- Runtime - Integrations -->
   <ItemGroup>
     <PackageReference Update="MSTest.TestFramework" Version="2.1.0" />
-    <PackageReference Update="xunit.core" Version="2.4.1" />
+    <PackageReference Update="xunit.extensibility.core" Version="2.4.1" />
   </ItemGroup>
 
   <!-- Test -->
   <ItemGroup>
     <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Update="MSTest.TestAdapter" Version="2.1.2" />
+    <PackageReference Update="xunit.core" Version="2.4.1" />
     <PackageReference Update="Moq" Version="4.13.1" />
+    <PackageReference Update="xunit" Version="2.4.1" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
 </Project>

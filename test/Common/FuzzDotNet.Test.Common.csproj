@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Core/FuzzDotNet.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <ItemGroup>
+    <ProjectReference Include="../Common/FuzzDotNet.Test.Common.csproj" />
+    <ProjectReference Include="../../src/Core/FuzzDotNet.Core.csproj" />
+    <ProjectReference Include="../../src/Xunit/FuzzDotNet.Xunit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+</Project>

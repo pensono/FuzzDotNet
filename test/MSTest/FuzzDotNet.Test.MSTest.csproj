@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <ItemGroup>
+    <ProjectReference Include="../Common/FuzzDotNet.Test.Common.csproj" />
+    <ProjectReference Include="../../src/Core/FuzzDotNet.Core.csproj" />
+    <ProjectReference Include="../../src/MSTest/FuzzDotNet.MSTest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+
+</Project>

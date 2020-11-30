@@ -1,4 +1,4 @@
-using FuzzDotNet.Test.TestUtilities;
+using FuzzDotNet.Test.Common;
 using FuzzDotNet.Core.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

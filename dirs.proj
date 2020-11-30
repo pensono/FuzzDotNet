@@ -3,6 +3,6 @@
 
   <ItemGroup>
     <ProjectReference Include="src/dirs.proj" />
-    <ProjectReference Include="test/FuzzDotNet.Test.csproj" />
+    <ProjectReference Include="test/dirs.proj" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Formatting;
 using FuzzDotNet.MSTest;
-using FuzzDotNet.Test.TestUtilities;
+using FuzzDotNet.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

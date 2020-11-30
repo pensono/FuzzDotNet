@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.Build.Traversal/2.0.12">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1" />
+
+  <ItemGroup>
+    <ProjectReference Include="Common/FuzzDotNet.Test.Common.csproj" />
+    <ProjectReference Include="Core/FuzzDotNet.Test.Core.csproj" />
+    <ProjectReference Include="MSTest/FuzzDotNet.Test.MSTest.csproj" />
+    <ProjectReference Include="Xunit/FuzzDotNet.Test.Xunit.csproj" />
+  </ItemGroup>
+</Project>

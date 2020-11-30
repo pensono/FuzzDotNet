@@ -23,4 +23,6 @@ jobs:
     - name: Pack
       run: dotnet pack -p:PackageVersion=$PACKAGE_VERSION
     - name: Push to Nuget.org
-      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_ORG_KEY }} --source https://api.nuget.org/v3/index.json
+      run: |-
+        echo ::add-mask::${{ secrets.NUGET_ORG_KEY }}
+        dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_ORG_KEY }} --source https://api.nuget.org/v3/index.json

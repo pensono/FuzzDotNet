@@ -1,0 +1,25 @@
+name: Publish
+
+on: 
+  release:
+    types: [published]
+    tags: [release/**]
+
+jobs:
+  Validation:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Get Version Number
+      run: echo 'PACKAGE_VERSION=${GITHUB_REF#refs/heads/release/*}' >> $GITHUB_ENV
+    - name: Pack
+      run: dotnet pack -p:PackageVersion=$PACKAGE_VERSION
+    - name: Push to Nuget.org
+      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_ORG_KEY }} --source https://api.nuget.org/v3/index.json

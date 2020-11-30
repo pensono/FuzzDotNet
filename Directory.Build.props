@@ -13,6 +13,8 @@
         <IncludeSymbols>true</IncludeSymbols>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <Authors>Ethan Shea</Authors>
+        <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+        <Description>FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.</Description>
     </PropertyGroup>
 
     <ItemGroup>

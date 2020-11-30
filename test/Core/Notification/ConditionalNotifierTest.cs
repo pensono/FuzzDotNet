@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Notification;
@@ -20,7 +21,7 @@ namespace FuzzDotNet.Test.Core.Notification
             var innerNotifier = new Mock<INotifier>();
 
             var notifier = new ConditionalNotifier(innerNotifier.Object, _ => shouldNotify);
-            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<ITestMethod>(), new List<Argument>()));
+            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<MethodInfo>(), new List<Argument>()));
 
             innerNotifier.Verify(n => n.NotifyCounterexampleAsync(It.IsAny<Counterexample>()), Times.Exactly(notifyTimes));
         }

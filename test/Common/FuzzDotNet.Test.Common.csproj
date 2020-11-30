@@ -5,4 +5,8 @@
     <ProjectReference Include="../../src/Core/FuzzDotNet.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" />
+  </ItemGroup>
+
 </Project>

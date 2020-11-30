@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Notification;
@@ -19,7 +20,7 @@ namespace FuzzDotNet.Test.Core.Notification
             Console.SetOut(writer);
 
             var notifier = new ConsoleNotifier(TestFormatter.Instance);
-            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<ITestMethod>(), new List<Argument>()));
+            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<MethodInfo>(), new List<Argument>()));
 
             var output = writer.ToString();
             Assert.IsTrue(output.Contains(TestFormatter.GeneratedString));

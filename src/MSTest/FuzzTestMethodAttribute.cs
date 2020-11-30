@@ -88,7 +88,7 @@ namespace FuzzDotNet.MSTest
                         testMethod.MethodInfo.GetParameters(),
                         (a, p) => new Argument(p.Name!, a));
 
-                    var counterexample = new Counterexample(testMethod, fuzzArguments.ToList());
+                    var counterexample = new Counterexample(testMethod.MethodInfo, fuzzArguments.ToList());
 
                     result.DatarowIndex = argumentGenerator.CurrentSeed;
                     result.TestContextMessages = TestResultFormatter.Format(counterexample);

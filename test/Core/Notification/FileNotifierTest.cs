@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FuzzDotNet.Core;
@@ -19,7 +20,7 @@ namespace FuzzDotNet.Test.Core.Notification
             var path = $"{new FuzzRandom().Uniform(0, int.MaxValue)}.txt";
 
             var notifier = new FileNotifier(TestFormatter.Instance, _ => path);
-            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<ITestMethod>(), new List<Argument>()));
+            await notifier.NotifyCounterexampleAsync(new Counterexample(Mock.Of<MethodInfo>(), new List<Argument>()));
 
             var output = await File.ReadAllTextAsync(path, Encoding.UTF8);
             Assert.IsTrue(output.Contains(TestFormatter.GeneratedString));

@@ -13,7 +13,7 @@ namespace FuzzDotNet.Core.Notification
         {
             var formatted = Formatter.Format(counterexample);
 
-            Console.WriteLine($"Counter-example for {counterexample.TestMethod.TestMethodName}:");
+            Console.WriteLine($"Counter-example for {counterexample.TestMethod.Name}:");
             Console.WriteLine(formatted);
 
             return Task.CompletedTask;

@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace FuzzDotNet.Core
 {
     public class Counterexample
     {
-        public ITestMethod TestMethod { get; }
+        public MethodInfo TestMethod { get; }
 
         public IList<Argument> Arguments { get; }
 
-        public Counterexample(ITestMethod testMethod, IList<Argument> arguments)
+        public Counterexample(MethodInfo testMethod, IList<Argument> arguments)
         {
             TestMethod = testMethod;
             Arguments = arguments;

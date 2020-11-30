@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Formatting;
 using FuzzDotNet.MSTest;
@@ -20,7 +21,7 @@ namespace FuzzDotNet.Test.Core.Formatting
                 new Argument("number", 4),
                 new Argument("string", "hello"),
             };
-            var counterexample = new Counterexample(Mock.Of<ITestMethod>(), arguments);
+            var counterexample = new Counterexample(Mock.Of<MethodInfo>(), arguments);
 
             var formatted = new JsonFormatter().Format(counterexample);
 
@@ -41,7 +42,7 @@ namespace FuzzDotNet.Test.Core.Formatting
             }
 
             var formatter = new JsonFormatter();
-            var formatted = formatter.Format(new Counterexample(Mock.Of<ITestMethod>(), arguments));
+            var formatted = formatter.Format(new Counterexample(Mock.Of<MethodInfo>(), arguments));
             Assert.IsFalse(formatted.EndsWith("\n"));
         }
     }

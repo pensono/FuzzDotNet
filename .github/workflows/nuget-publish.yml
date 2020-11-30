@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Get Version Number
-      run: echo "PACKAGE_VERSION=${GITHUB_REF#refs/tags/release/*}" >> $GITHUB_ENV
+      run: echo "VERSION=${GITHUB_REF#refs/tags/release/*}" >> $GITHUB_ENV
     - name: Pack
-      run: dotnet pack -p:PackageVersion=$PACKAGE_VERSION --configuration Release
+      run: dotnet pack -p:Version=$PACKAGE_VERSION --configuration Release
     - name: Push to NuGet.org
       run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_ORG_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

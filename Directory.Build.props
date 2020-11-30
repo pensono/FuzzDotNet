@@ -15,7 +15,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <Authors>Ethan Shea</Authors>
         <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
-        <Description>FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.</Description>
+        <Description>FuzzDotNet is a library enabling fuzz-testing and the generation of synthetic application data.</Description>
         <PackageTags>testing;FuzzDotNet;unit test;fuzz test</PackageTags>
         <PackageProjectUrl>https://github.com/pensono/FuzzDotNet</PackageProjectUrl>
     </PropertyGroup>

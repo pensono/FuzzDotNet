@@ -1,6 +1,6 @@
 # FuzzDotNet
 
-[![.NET Core](https://github.com/pensono/FuzzDotNet/workflows/Build%20Validation/badge.svg)](https://github.com/pensono/FuzzDotNet/actions)
+[![Build](https://github.com/pensono/FuzzDotNet/workflows/Build/badge.svg?branch=master)](https://github.com/pensono/FuzzDotNet/actions?query=workflow%3A"Build") [![MSTest](https://img.shields.io/nuget/v/FuzzDotNet.MSTest.svg?label=MSTest)](https://www.nuget.org/packages/FuzzDotNet.MSTest) [![xunit](https://img.shields.io/nuget/v/FuzzDotNet.Xunit.svg?label=xunit)](https://www.nuget.org/packages/FuzzDotNet.Xunit)
 
 FuzzDotNet is a library enabling fuzz-testing and the generation synthetic application data.
 

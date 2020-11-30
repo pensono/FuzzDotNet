@@ -19,10 +19,10 @@ jobs:
         dotnet-version: 5.0.x
     - name: Get Version Number
       shell: bash
-      run: echo 'PACKAGE_VERSION=${GITHUB_REF#refs/heads/release/*}' >> $GITHUB_ENV
+      run: echo "PACKAGE_VERSION=${GITHUB_REF#refs/heads/release/*}" >> $GITHUB_ENV
     - name: Pack
       run: dotnet pack -p:PackageVersion=$PACKAGE_VERSION
     - name: Push to Nuget.org
       run: |-
-        echo ::add-mask::${{ secrets.NUGET_ORG_KEY }}
+        echo "::add-mask::${{ secrets.NUGET_ORG_KEY }}"
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_ORG_KEY }} --source https://api.nuget.org/v3/index.json

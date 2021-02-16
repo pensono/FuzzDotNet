@@ -5,7 +5,7 @@ namespace FuzzDotNet.Core
 {
     public static class FuzzProfileExtensions
     {
-        public static object? Generate(this IFuzzProfile profile, Type type, FuzzRandom random) 
+        public static object? Generate(this IFuzzProfile profile, Type type, FuzzRandom random)
         {
             var generator = profile.GeneratorForOrThrow(type);
 

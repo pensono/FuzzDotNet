@@ -16,10 +16,10 @@ namespace FuzzDotNet.Test.Common
 
             throw new AssertFailedException("Type does not match");
         }
-        
+
         public static void AreEqualIgnoreNewlineStyle(this Assert assert, string expected, string actual)
         {
-            string Normalize(string input) 
+            string Normalize(string input)
             {
                 return input.Replace("\r\n", "\n");
             }

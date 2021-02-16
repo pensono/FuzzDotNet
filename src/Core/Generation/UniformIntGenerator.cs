@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace FuzzDotNet.Core.Generation
@@ -11,7 +11,7 @@ namespace FuzzDotNet.Core.Generation
         public int Min { get; set; } = int.MinValue;
         public int Max { get; set; } = int.MaxValue;
 
-        public override bool CanGenerate(IFuzzProfile profile, Type type) =>  type == typeof(int);
+        public override bool CanGenerate(IFuzzProfile profile, Type type) => type == typeof(int);
 
         public override object? Generate(IFuzzProfile profile, Type type, FuzzRandom random)
         {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -26,7 +26,8 @@ namespace FuzzDotNet.Test.MSTest
         }
 
         [FuzzTestMethod]
-        public void TestIterationsBasic([UniformIntGenerator(Min = 0, Max = 10)] int iterations) {
+        public void TestIterationsBasic([UniformIntGenerator(Min = 0, Max = 10)] int iterations)
+        {
             var fuzzClassInstance = TestMethodInvocationClass<TestIterationsClass>(iterations);
             Assert.AreEqual(iterations, fuzzClassInstance.Invocations);
         }
@@ -138,7 +139,7 @@ namespace FuzzDotNet.Test.MSTest
 
             Assert.IsInstanceOfType(annotation.FuzzProfile, typeof(UnitTestFuzzProfile));
         }
-        
+
         [TestMethod]
         public void SendsNotification()
         {
@@ -222,7 +223,8 @@ namespace FuzzDotNet.Test.MSTest
             var fuzzTestMethod = new Mock<ITestMethod>();
             fuzzTestMethod.Setup(m => m.MethodInfo).Returns(method);
             fuzzTestMethod.Setup(m => m.Invoke(It.IsAny<object?[]>()))
-                .Returns<object?[]>(args => {
+                .Returns<object?[]>(args =>
+                {
                     try
                     {
                         method.Invoke(instance, args);

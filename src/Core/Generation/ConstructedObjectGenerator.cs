@@ -11,7 +11,7 @@ namespace FuzzDotNet.Core.Generation
     {
         public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
-            return type.GetConstructors().Length > 0 
+            return type.GetConstructors().Length > 0
                 && !type.ContainsGenericParameters;
         }
 

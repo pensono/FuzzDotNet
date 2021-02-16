@@ -24,6 +24,11 @@
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
 
+    <!-- Enable linter -->
+    <PropertyGroup>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    </PropertyGroup>
+
     <!-- CI -->
     <!-- https://github.com/clairernovotny/DeterministicBuilds --> 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

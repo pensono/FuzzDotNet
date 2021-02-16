@@ -8,12 +8,12 @@ namespace FuzzDotNet.Core.Formatting
 {
     public class JsonFormatter : IFormatter
     {
-        private static JsonSerializerOptions DefaultSerializationOptions = new JsonSerializerOptions()
+        private static readonly JsonSerializerOptions DefaultSerializationOptions = new JsonSerializerOptions()
         {
             WriteIndented = true,
         };
 
-        private JsonSerializerOptions _serializerOptions;
+        private readonly JsonSerializerOptions _serializerOptions;
 
         public JsonFormatter()
             : this(DefaultSerializationOptions)

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FuzzDotNet.Core.Generation;
 using FuzzDotNet.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,15 +11,15 @@ namespace FuzzDotNet.Test.Core.Generation
     [TestClass]
     public class SubclassGeneratorTest
     {
-        private abstract class AbstractSuperclass {}
+        private abstract class AbstractSuperclass { }
 
-        private class ImplementingSubclass : AbstractSuperclass {}
+        private class ImplementingSubclass : AbstractSuperclass { }
 
         [FuzzTestMethod]
         public void GeneratesSubclass()
         {
             var profile = new TestFuzzProfile();
-            
+
             var generated = profile.Generate(typeof(AbstractSuperclass), new FuzzRandom());
 
             Assert.IsInstanceOfType(generated, typeof(ImplementingSubclass));

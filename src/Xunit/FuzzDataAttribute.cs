@@ -20,7 +20,8 @@ namespace FuzzDotNet.Xunit
     {
         private IFuzzProfile? _fuzzProfile;
 
-        public IFuzzProfile FuzzProfile {
+        public IFuzzProfile FuzzProfile
+        {
             // Note that this requirement prohibits parameterized fuzz profiles
             // The best way to do this is to subclass FuzzTestMethodAttribute and forward the parameters from that to the fuzz profile
             get => ReflectionExtensions.GetDefaultConstructableParameter(ref _fuzzProfile, FuzzProfileType, CreateFuzzProfile);

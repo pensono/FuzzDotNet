@@ -57,7 +57,8 @@ namespace FuzzDotNet.Core.Simplification
             {
                 var midpoint = Midpoint(low, high);
 
-                if (midpoint.Equals(low)) {
+                if (midpoint.Equals(low))
+                {
                     // Convergence has been achieved
                     return high;
                 }
@@ -65,7 +66,8 @@ namespace FuzzDotNet.Core.Simplification
                 {
                     high = midpoint;
                 }
-                else { 
+                else
+                {
                     low = midpoint;
                 }
             }

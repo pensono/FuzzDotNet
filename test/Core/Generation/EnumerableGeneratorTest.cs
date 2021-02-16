@@ -18,7 +18,7 @@ namespace FuzzDotNet.Test.Core.Generation
         public void CanGenerate(Type type, bool canGenerate)
         {
             var actual = new EnumerableGenerator().CanGenerate(new TestFuzzProfile(), type);
-            
+
             Assert.AreEqual(canGenerate, actual);
         }
 

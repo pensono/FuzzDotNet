@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FuzzDotNet.Core;
 using FuzzDotNet.Core.Generation;
 using FuzzDotNet.Test.Common;
@@ -26,7 +26,7 @@ namespace FuzzDotNet.Test.Core.Generation
         [TestMethod]
         public void CollectionGeneratorList()
         {
-            var generator = new ChoiceGenerator(new List<object?>{1, 2, 3, 4});
+            var generator = new ChoiceGenerator(new List<object?> { 1, 2, 3, 4 });
             var random = new FuzzRandom();
 
             var generatedValue = generator.Generate(Mock.Of<IFuzzProfile>(), typeof(int), random);

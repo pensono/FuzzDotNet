@@ -1,4 +1,4 @@
-using FuzzDotNet.Core;
+﻿using FuzzDotNet.Core;
 using FuzzDotNet.Core.Formatting;
 
 namespace FuzzDotNet.Test
@@ -12,7 +12,7 @@ namespace FuzzDotNet.Test
 
         public static TestFormatter Instance = new TestFormatter();
 
-        private TestFormatter() {}
+        private TestFormatter() { }
 
         public string Format(Counterexample counterexample)
         {

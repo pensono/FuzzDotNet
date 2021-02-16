@@ -6,8 +6,8 @@ namespace FuzzDotNet.Core.Notification
 {
     public class ConsoleNotifier : Notifier
     {
-        public ConsoleNotifier(IFormatter formatter) 
-            : base(formatter) {}
+        public ConsoleNotifier(IFormatter formatter)
+            : base(formatter) { }
 
         public override Task NotifyCounterexampleAsync(Counterexample counterexample)
         {

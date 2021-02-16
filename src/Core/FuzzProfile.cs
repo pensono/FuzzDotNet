@@ -15,7 +15,7 @@ namespace FuzzDotNet.Core
 
         public virtual IEnumerable<ISimplifier> Simplifiers { get => Array.Empty<ISimplifier>(); }
 
-        public virtual IGenerator? GeneratorFor(Type type) 
+        public virtual IGenerator? GeneratorFor(Type type)
         {
             // TODO memoize the results
             return Generators.FirstOrDefault(generator => generator.CanGenerate(this, type));

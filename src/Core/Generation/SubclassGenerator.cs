@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +10,7 @@ namespace FuzzDotNet.Core.Generation
     /// </summary>
     public class SubclassGenerator : Generator
     {
-        private static IDictionary<Type, IList<Type>> _directSubclasses = new Dictionary<Type, IList<Type>>();
+        private static readonly IDictionary<Type, IList<Type>> _directSubclasses = new Dictionary<Type, IList<Type>>();
 
         public override bool CanGenerate(IFuzzProfile profile, Type type)
         {
@@ -28,14 +28,14 @@ namespace FuzzDotNet.Core.Generation
             return profile.Generate(generatedType, random);
         }
 
-        private IList<Type> DirectSubclassesOf(Type type) 
+        private IList<Type> DirectSubclassesOf(Type type)
         {
-            if (!_directSubclasses.TryGetValue(type, out var subclasses)) 
+            if (!_directSubclasses.TryGetValue(type, out var subclasses))
             {
                 subclasses = type.Assembly.GetTypes().Where(t => t.BaseType == type).ToList();
                 _directSubclasses[type] = subclasses;
             }
-            
+
             return subclasses;
         }
     }

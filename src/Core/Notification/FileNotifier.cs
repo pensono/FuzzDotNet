@@ -9,7 +9,7 @@ namespace FuzzDotNet.Core.Notification
 {
     public class FileNotifier : Notifier
     {
-        private Func<Counterexample, string> _pathGenerator;
+        private readonly Func<Counterexample, string> _pathGenerator;
 
         public FileNotifier(IFormatter formatter, Func<Counterexample, string> pathGenerator)
             : base(formatter)

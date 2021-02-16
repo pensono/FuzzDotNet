@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -27,7 +27,7 @@ namespace FuzzDotNet.Core.Generation
         /// I'm not entirely sure if this is the best way to do this.
         /// It might be better to have the generator itself be generic enough to handle different interfaces
         /// </remarks>
-        private static readonly IList<(Type Interface, Type Implementation)> Implementations = new []
+        private static readonly IList<(Type Interface, Type Implementation)> Implementations = new[]
         {
             (typeof(IList<>), typeof(List<>)),
             (typeof(ISet<>), typeof(HashSet<>)),
@@ -51,10 +51,11 @@ namespace FuzzDotNet.Core.Generation
                 return false;
             }
 
-            if (_elementGenerator == null) {
+            if (_elementGenerator == null)
+            {
                 return profile.GeneratorFor(type.GetEnumerableElementType()) != null;
             }
-            else 
+            else
             {
                 return _elementGenerator.CanGenerate(profile, type.GetEnumerableElementType());
             }
@@ -69,7 +70,7 @@ namespace FuzzDotNet.Core.Generation
 
             // Can't use the regular constructor because we don't have a generic type
             var genericImplementationType = GenericImplementationType(type)!;
-            var implementationType = genericImplementationType.MakeGenericType(new []{ elementType });
+            var implementationType = genericImplementationType.MakeGenericType(new[] { elementType });
             var result = Activator.CreateInstance(implementationType);
             Check.IsNotNull(result);
 
@@ -79,7 +80,7 @@ namespace FuzzDotNet.Core.Generation
             for (var i = 0; i < length; i++)
             {
                 var element = elementGenerator.Generate(profile, elementType, random);
-                add.Invoke(result, new[]{ element });
+                add.Invoke(result, new[] { element });
             }
 
             return result;

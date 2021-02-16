@@ -13,7 +13,7 @@
             var sum = (long)low + high;
 
             // (low + high) / 2 rounds towards zero
-            return (int) (sum / 2);
+            return (int)(sum / 2);
         }
     }
 }

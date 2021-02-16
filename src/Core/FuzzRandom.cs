@@ -26,7 +26,7 @@ namespace FuzzDotNet.Core
             var index = _random.Next(items.Count);
             return items[index];
         }
-        
+
         public object? Choice(Array items)
         {
             Check.IsTrue(items.Length > 0);
@@ -34,11 +34,11 @@ namespace FuzzDotNet.Core
             var index = _random.Next(items.Length);
             return items.GetValue(index);
         }
-        
+
         public T Choice<T>(T[] items)
         {
             Check.IsTrue(items.Length > 0);
-        
+
             var index = _random.Next(items.Length);
             return items[index];
         }
@@ -63,7 +63,8 @@ namespace FuzzDotNet.Core
         /// <param name="max">The inclusive maximum value in the range to sample from.</param>
         public int Uniform(int min, int max)
         {
-            if (max < min) {
+            if (max < min)
+            {
                 throw new ArgumentException($"{nameof(min)} is less than {nameof(max)}");
             }
 

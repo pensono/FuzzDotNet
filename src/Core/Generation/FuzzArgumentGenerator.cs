@@ -11,13 +11,14 @@ namespace FuzzDotNet.Core.Generation
     /// </summary>
     public class FuzzArgumentGenerator
     {
-        private IEnumerable<(IGenerator Generator, Type ParameterType)> _argumentGenerators;
-        private FuzzRandom _seedGenerator;
-        private IFuzzProfile _profile;
+        private readonly IEnumerable<(IGenerator Generator, Type ParameterType)> _argumentGenerators;
+        private readonly FuzzRandom _seedGenerator;
+        private readonly IFuzzProfile _profile;
 
         private object?[]? _currentArguments = null;
 
-        public object?[] CurrentArguments {
+        public object?[] CurrentArguments
+        {
             get
             {
                 if (_currentArguments == null)
@@ -30,8 +31,9 @@ namespace FuzzDotNet.Core.Generation
         }
 
         private int? _currentSeed = null;
-        public int CurrentSeed { 
-            get 
+        public int CurrentSeed
+        {
+            get
             {
                 if (_currentSeed is int i)
                 {
@@ -49,7 +51,8 @@ namespace FuzzDotNet.Core.Generation
             _seedGenerator = seed is int s ? new FuzzRandom(s) : new FuzzRandom();
 
             _argumentGenerators = method.GetParameters()
-            .Select(parameter => {
+            .Select(parameter =>
+            {
                 var generator = GetGenerator(profile, parameter);
 
                 return (Generator: generator, parameter.ParameterType);

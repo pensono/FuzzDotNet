@@ -34,7 +34,7 @@ namespace FuzzDotNet.Core.Simplification
         {
 
             var simplest = input;
-            IEnumerable<T> candidates = new [] { input };
+            IEnumerable<T> candidates = new[] { input };
 
             while (candidates.Any())
             {

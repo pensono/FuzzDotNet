@@ -9,9 +9,9 @@ namespace FuzzDotNet.Core.Notification
 {
     public class ConditionalNotifier : INotifier
     {
-        private INotifier _innerNotifier;
+        private readonly INotifier _innerNotifier;
 
-        private Func<Counterexample, bool> _predicate;
+        private readonly Func<Counterexample, bool> _predicate;
 
         public ConditionalNotifier(INotifier notifier, Func<Counterexample, bool> predicate)
         {
@@ -21,7 +21,7 @@ namespace FuzzDotNet.Core.Notification
 
         public async Task NotifyCounterexampleAsync(Counterexample counterexample)
         {
-            if (_predicate(counterexample)) 
+            if (_predicate(counterexample))
             {
                 await _innerNotifier.NotifyCounterexampleAsync(counterexample);
             }

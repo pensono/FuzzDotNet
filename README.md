@@ -72,7 +72,7 @@ To a specific parameter:
 
 ```csharp
 [FuzzTestMethod]
-public void TestAddContains([TreeSetGenerator] TreeSet<int> set, int element) 
+public void TestAddContains([TreeSetGenerator] TreeSet<int> set, int element)
 {
     list.Add(element);
     Assert.IsTrue(list.Contains(element));

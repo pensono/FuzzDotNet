@@ -13,12 +13,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FuzzDotNet.MSTest
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]  
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class FuzzTestMethodAttribute : TestMethodAttribute
     {
         private IFuzzProfile? _fuzzProfile;
 
-        public IFuzzProfile FuzzProfile {
+        public IFuzzProfile FuzzProfile
+        {
             // Note that this requirement prohibits parameterized fuzz profiles
             // The best way to do this is to subclass FuzzTestMethodAttribute and forward the parameters from that to the fuzz profile
             get => ReflectionExtensions.GetDefaultConstructableParameter(ref _fuzzProfile, FuzzProfileType, CreateFuzzProfile);
@@ -43,7 +44,8 @@ namespace FuzzDotNet.MSTest
         private IFormatter? _resultFormatter;
 
         // Does this property belong here? Or in the FuzzProfile?
-        public IFormatter TestResultFormatter {
+        public IFormatter TestResultFormatter
+        {
             get => ReflectionExtensions.GetDefaultConstructableParameter(ref _resultFormatter, TestResultFormatterType, CreateTestResultFormatter);
             set => _resultFormatter = value;
         }

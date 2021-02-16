@@ -21,9 +21,9 @@ namespace FuzzDotNet.Core.Generation
             var constructor = type.GetConstructor(Array.Empty<Type>())!;
             var instance = constructor.Invoke(Array.Empty<object?>());
 
-            foreach (var property in type.GetDataProperties()) 
+            foreach (var property in type.GetDataProperties())
             {
-                if (!property.CanWrite) 
+                if (!property.CanWrite)
                 {
                     continue;
                 }

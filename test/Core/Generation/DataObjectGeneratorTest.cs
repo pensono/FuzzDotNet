@@ -61,7 +61,7 @@ namespace FuzzDotNet.Test.Core.Generation
             var generator = new DataObjectGenerator();
             Assert.IsFalse(generator.CanGenerate(Mock.Of<IFuzzProfile>(), typeof(NotDefaultConstructable)));
         }
-        
+
         private class Outer
         {
             public string? StringProperty { get; set; }
@@ -69,11 +69,11 @@ namespace FuzzDotNet.Test.Core.Generation
             public Inner? Inner { get; set; }
         }
 
-        private class Inner 
+        private class Inner
         {
             public int IntProperty { get; set; }
         }
-        
+
         [TestMethod]
         public void NestedObjects()
         {

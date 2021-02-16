@@ -7,13 +7,13 @@ namespace FuzzDotNet.Core.Notification
 {
     public class CompositeNotifier : INotifier
     {
-        private IEnumerable<INotifier> _notifiers;
+        private readonly IEnumerable<INotifier> _notifiers;
 
         public CompositeNotifier(params INotifier[] notifiers)
         {
             _notifiers = notifiers;
         }
-        
+
         public CompositeNotifier(IEnumerable<INotifier> notifiers)
         {
             _notifiers = notifiers.ToList();

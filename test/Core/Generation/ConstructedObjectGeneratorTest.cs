@@ -13,7 +13,7 @@ namespace FuzzDotNet.Test.Core.Generation
         {
             public int IntProperty { get; set; }
 
-            public ConstructedClass(int intProperty) 
+            public ConstructedClass(int intProperty)
             {
                 IntProperty = intProperty;
             }
@@ -30,12 +30,12 @@ namespace FuzzDotNet.Test.Core.Generation
             var obj = (ConstructedClass)result;
             Assert.AreEqual(TestFuzzProfile.GeneratedInt, obj.IntProperty);
         }
-        
+
         private class NonConstructable
         {
             public int IntProperty { get; set; }
 
-            private NonConstructable(int intProperty) 
+            private NonConstructable(int intProperty)
             {
                 IntProperty = intProperty;
             }

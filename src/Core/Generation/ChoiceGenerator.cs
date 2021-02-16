@@ -14,7 +14,7 @@ namespace FuzzDotNet.Core.Generation
     public class ChoiceGenerator : Generator
     {
         private readonly IList<object?> _items;
-        
+
         /// <remarks>
         /// Not sure what the right choice here is since the list of items is untyped
         /// It's unlikely this class would be used as a default generator anyways
